@@ -87,7 +87,7 @@ div.output_prompt{
 div.output_area{
     padding:0px;
     page-break-inside:avoid;
-    display:-webkit-box;
+    /*display:-webkit-box;
     -webkit-box-orient:horizontal;
     -webkit-box-align:stretch;
     display:-moz-box;
@@ -95,7 +95,7 @@ div.output_area{
     -moz-box-align:stretch;
     display:box;
     box-orient:horizontal;
-    box-align:stretch;}
+    box-align:stretch;*/}
 
 div.output_area pre{
     font-family:monospace;
