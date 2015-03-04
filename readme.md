@@ -11,6 +11,9 @@ The workflow for blogging is as follows:
 
 ## Repo Structure:
 
+- **index.html** - The site's homepage.
+- **readme.md** - This file.
+
 ### clean-templates/
 
 This is a folder to place the original material used to create the site that might be useful later.
@@ -38,9 +41,7 @@ Javascript... so who knows.
 
 ### notebooks/
 
-- **index.html** - The site's homepage.
-
-- **readme.md** - This file.
+This folder contains the raw iPython notebook files.
 
 ## Credits
 
