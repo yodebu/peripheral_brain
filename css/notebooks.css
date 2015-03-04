@@ -261,7 +261,7 @@ Text
 .notebook h5{font-size:85%;margin:.85em 0;font-weight:bold;}
 .notebook h6{font-size:77%;margin:1.3em 0;font-weight:bold;}
 
-.notebook ul{list-style:disc;margin:1em 2em;}
+.notebook ul{list-style:disc;}
 .notebook ul ul{list-style:square;margin:0em 2em;}
 .notebook ul ul ul{list-style:circle;margin:0em 2em;}
 .notebook ol{list-style:decimal;margin:1em 2em;}
