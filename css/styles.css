@@ -1,0 +1,121 @@
+/* ---------------------------------------------------------
+ HTML5 Bones
+ This stylesheet contains print styling and a section for
+ you to simply add your own. This is a basic template
+ after all.
+ ---------------------------------------------------------*/
+
+body {
+  font-family: sans-serif;
+  background: #ffffff;
+  color: #444;
+}
+
+
+/* Default link styling */
+a:link { color:#0271fb; }
+a:visited { color:#bd02fb; }
+a:hover, a:focus { color:#000; }
+a:active { color:#fb0e02; }
+
+/* ---------------------------------------------------------
+    #HEADER SECTION
+---------------------------------------------------------*/
+
+.row {
+  background-color: #f3b31e;
+  padding:.5em;
+  color: #fff;
+  margin-bottom:1em;
+}
+
+.row h2{
+margin:0;
+padding: 0;
+}
+
+.row nav{
+float:right;
+margin-top:-1.28em;
+}
+
+.row a, .row a:hover, .row a:visited{
+font-weight: bold;
+color: #fff;
+text-decoration: none;
+}
+
+/* ---------------------------------------------------------
+    #WRAPPER SECTION
+---------------------------------------------------------*/
+
+.wrap {
+  position: relative;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+/* ---------------------------------------------------------
+    #FOOTER SECTION
+---------------------------------------------------------*/
+
+footer {
+  text-align: center;
+  margin:1em;
+}
+
+/* ---------------------------------------------------------
+   INDEX PAGE
+---------------------------------------------------------*/
+
+.post-list {
+  -webkit-columns: 3 250px;
+  -moz-columns: 3 250px;
+  columns: 3 250px;
+}
+
+
+.post-list li{
+  margin-bottom:.75em;
+}
+
+.post-list li a{
+color: #444;
+text-decoration: none;
+}
+
+/* ---------------------------------------------------------
+Print styles
+---------------------------------------------------------*/
+@media print {
+    * {
+        color:#000 !important;
+        box-shadow:none !important;
+        text-shadow:none !important;
+        background:transparent !important;
+    }
+    html { background-color:#fff; }
+    /* Hide navigation */
+    nav { display:none; }
+
+    /* Show link destinations in brackets after the link text */
+    a[href]:after { content: " (" attr(href) ") "; }
+    a[href] {
+        font-weight:bold;
+        text-decoration:underline;
+        color:#06c;
+        border:none;
+    }
+    /* Don't show link destinations for JavaScript or internal links */
+    a[href^="javascript:"]:after, a[href^="#"]:after { content:""; }
+
+    /* Show abbr title value in brackets after the text */
+    abbr[title]:after { content: " (" attr(title) ")"; }
+
+    figure {
+        margin-bottom:1em;
+        overflow:hidden;
+    }
+
+    figure img { border:1px solid #000; }
+}
