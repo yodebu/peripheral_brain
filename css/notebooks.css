@@ -253,8 +253,6 @@ Text
 .notebook em{font-style:italic;}
 .notebook strong{font-weight:bold;}
 .notebook u{text-decoration:underline;}
-.notebook :link{text-decoration:underline;}
-.notebook :visited{text-decoration:underline;}
 
 .notebook h1{font-size:197%;margin:.15em 0;font-weight:bold;}
 .notebook h2{font-size:153.9%;margin:.25em 0;font-weight:bold;}

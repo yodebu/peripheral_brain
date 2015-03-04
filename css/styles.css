@@ -13,17 +13,18 @@ body {
 
 
 /* Default link styling */
-a:link { color:#0271fb; }
-a:visited { color:#bd02fb; }
-a:hover, a:focus { color:#000; }
-a:active { color:#fb0e02; }
+a:link {
+  color:#176BD7}
+a:visited { color:#3598E0; }
+a:hover, a:focus { color:#E34F34; }
+a:active { color:#B23921; }
 
 /* ---------------------------------------------------------
     #HEADER SECTION
 ---------------------------------------------------------*/
 
 .row {
-  background-color: #f3b31e;
+  background-color: #F2602F;
   padding:.5em;
   color: #fff;
   margin-bottom:1em;
@@ -80,8 +81,8 @@ footer {
 }
 
 .post-list li a{
-color: #444;
 text-decoration: none;
+font-family: sans-serif;
 }
 
 /* ---------------------------------------------------------
