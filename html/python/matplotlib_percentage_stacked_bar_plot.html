@@ -1,0 +1,374 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Stacked-Percentage-Bar-Plot-In-MatPlotLib">Stacked Percentage Bar Plot In MatPlotLib<a class="anchor-link" href="#Stacked-Percentage-Bar-Plot-In-MatPlotLib">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong> Based on: <a href="http://nbviewer.ipython.org/github/rasbt/matplotlib-gallery/blob/master/ipynb/barplots.ipynb">Sebastian Raschka</a>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-dataframe">Create dataframe<a class="anchor-link" href="#Create-dataframe">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;first_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Jason&#39;</span><span class="p">,</span> <span class="s">&#39;Molly&#39;</span><span class="p">,</span> <span class="s">&#39;Tina&#39;</span><span class="p">,</span> <span class="s">&#39;Jake&#39;</span><span class="p">,</span> <span class="s">&#39;Amy&#39;</span><span class="p">],</span>
+        <span class="s">&#39;pre_score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s">&#39;mid_score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">70</span><span class="p">],</span>
+        <span class="s">&#39;post_score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">51</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;pre_score&#39;</span><span class="p">,</span> <span class="s">&#39;mid_score&#39;</span><span class="p">,</span> <span class="s">&#39;post_score&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>pre_score</th>
+      <th>mid_score</th>
+      <th>post_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> Jason</td>
+      <td>  4</td>
+      <td> 25</td>
+      <td>  5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> Molly</td>
+      <td> 24</td>
+      <td> 94</td>
+      <td> 43</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>  Tina</td>
+      <td> 31</td>
+      <td> 57</td>
+      <td> 23</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>  Jake</td>
+      <td>  2</td>
+      <td> 62</td>
+      <td> 23</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>   Amy</td>
+      <td>  3</td>
+      <td> 70</td>
+      <td> 51</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Make-plot">Make plot<a class="anchor-link" href="#Make-plot">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a figure with a single subplot</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c"># Set bar width at 1</span>
+<span class="n">bar_width</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c"># positions of the left bar-boundaries</span>
+<span class="n">bar_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">]))]</span> 
+
+<span class="c"># positions of the x-axis ticks (center of the bars as bar labels)</span>
+<span class="n">tick_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">bar_width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar_l</span><span class="p">]</span> 
+
+<span class="c"># Create the total score for each participant</span>
+<span class="n">totals</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="n">k</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;mid_score&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;post_score&#39;</span><span class="p">])]</span>
+
+<span class="c"># Create the percentage of the total score the pre_score value for each participant was</span>
+<span class="n">pre_rel</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="n">j</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span>  <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">],</span> <span class="n">totals</span><span class="p">)]</span>
+
+<span class="c"># Create the percentage of the total score the mid_score value for each participant was</span>
+<span class="n">mid_rel</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="n">j</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span>  <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;mid_score&#39;</span><span class="p">],</span> <span class="n">totals</span><span class="p">)]</span>
+
+<span class="c"># Create the percentage of the total score the post_score value for each participant was</span>
+<span class="n">post_rel</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="n">j</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span>  <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;post_score&#39;</span><span class="p">],</span> <span class="n">totals</span><span class="p">)]</span>
+
+<span class="c"># Create a bar chart in position bar_1</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+       <span class="c"># using pre_rel data</span>
+       <span class="n">pre_rel</span><span class="p">,</span> 
+       <span class="c"># labeled </span>
+       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Pre Score&#39;</span><span class="p">,</span> 
+       <span class="c"># with alpha</span>
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="c"># with color</span>
+       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#019600&#39;</span><span class="p">,</span>
+       <span class="c"># with bar width</span>
+       <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span>
+       <span class="c"># with border color</span>
+       <span class="n">edgecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span>
+       <span class="p">)</span>
+
+<span class="c"># Create a bar chart in position bar_1</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+       <span class="c"># using mid_rel data</span>
+       <span class="n">mid_rel</span><span class="p">,</span> 
+       <span class="c"># with pre_rel</span>
+       <span class="n">bottom</span><span class="o">=</span><span class="n">pre_rel</span><span class="p">,</span> 
+       <span class="c"># labeled </span>
+       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Mid Score&#39;</span><span class="p">,</span> 
+       <span class="c"># with alpha</span>
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="c"># with color</span>
+       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#3C5F5A&#39;</span><span class="p">,</span> 
+       <span class="c"># with bar width</span>
+       <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span>
+       <span class="c"># with border color</span>
+       <span class="n">edgecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span>
+       <span class="p">)</span>
+
+<span class="c"># Create a bar chart in position bar_1</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+       <span class="c"># using post_rel data</span>
+       <span class="n">post_rel</span><span class="p">,</span> 
+       <span class="c"># with pre_rel and mid_rel on bottom</span>
+       <span class="n">bottom</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pre_rel</span><span class="p">,</span> <span class="n">mid_rel</span><span class="p">)],</span> 
+       <span class="c"># labeled </span>
+       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Post Score&#39;</span><span class="p">,</span>
+       <span class="c"># with alpha</span>
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="c"># with color</span>
+       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#219AD8&#39;</span><span class="p">,</span> 
+       <span class="c"># with bar width</span>
+       <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span>
+       <span class="c"># with border color</span>
+       <span class="n">edgecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span>
+       <span class="p">)</span>
+
+<span class="c"># Set the ticks to be first names</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_pos</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&quot;Percentage&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c"># Let the borders of the graphic</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">tick_pos</span><span class="p">)</span><span class="o">-</span><span class="n">bar_width</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">tick_pos</span><span class="p">)</span><span class="o">+</span><span class="n">bar_width</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">110</span><span class="p">)</span>
+
+<span class="c"># rotate axis labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">)</span>
+
+<span class="c"># shot plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+19P/B8WkMsoAyiK/AAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>

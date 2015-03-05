@@ -1,0 +1,762 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="pandas-Data-Structures">pandas Data Structures<a class="anchor-link" href="#pandas-Data-Structures">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-modules">Import modules<a class="anchor-link" href="#Import-modules">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Series-101">Series 101<a class="anchor-link" href="#Series-101">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Series are one-dimensional arrays (like R's vectors)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-series-of-the-number-of-floodingReports">Create a series of the number of floodingReports<a class="anchor-link" href="#Create-a-series-of-the-number-of-floodingReports">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">floodingReports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<span class="n">floodingReports</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[54]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0     5
+1     6
+2     2
+3     9
+4    12
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that the first column of numbers (0 to 4) are the index.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-county-names-to-be-the-index-of-the-floodingReports-series">Set county names to be the index of the floodingReports series<a class="anchor-link" href="#Set-county-names-to-be-the-index-of-the-floodingReports-series">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">floodingReports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;Cochise County&#39;</span><span class="p">,</span> <span class="s">&#39;Pima County&#39;</span><span class="p">,</span> <span class="s">&#39;Santa Cruz County&#39;</span><span class="p">,</span> <span class="s">&#39;Maricopa County&#39;</span><span class="p">,</span> <span class="s">&#39;Yuma County&#39;</span><span class="p">])</span>
+<span class="n">floodingReports</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[55]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Cochise County        5
+Pima County           6
+Santa Cruz County     2
+Maricopa County       9
+Yuma County          12
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-the-number-of-floodingReports-in-Cochise-County">View the number of floodingReports in Cochise County<a class="anchor-link" href="#View-the-number-of-floodingReports-in-Cochise-County">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">floodingReports</span><span class="p">[</span><span class="s">&#39;Cochise County&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[56]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>5</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-the-counties-with--more-than-6-flooding-reports">View the counties with  more than 6 flooding reports<a class="anchor-link" href="#View-the-counties-with--more-than-6-flooding-reports">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">floodingReports</span><span class="p">[</span><span class="n">floodingReports</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[57]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Maricopa County     9
+Yuma County        12
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-pandas-series-from-a-dictionary">Create a pandas series from a dictionary<a class="anchor-link" href="#Create-a-pandas-series-from-a-dictionary">&#182;</a></h3><p>Note: when you do this, the dict's key's will become the series's index</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a dictionary</span>
+<span class="n">fireReports_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Cochise County&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s">&#39;Pima County&#39;</span><span class="p">:</span> <span class="mi">342</span><span class="p">,</span> <span class="s">&#39;Santa Cruz County&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="s">&#39;Maricopa County&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&#39;Yuma County&#39;</span> <span class="p">:</span> <span class="mi">52</span><span class="p">}</span>
+
+<span class="c"># Convert the dictionary into a pd.Series, and view it</span>
+<span class="n">fireReports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fireReports_dict</span><span class="p">);</span> <span class="n">fireReports</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[58]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Cochise County        12
+Maricopa County       42
+Pima County          342
+Santa Cruz County     13
+Yuma County           52
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Change-the-index-of-a-series-to-shorter-names">Change the index of a series to shorter names<a class="anchor-link" href="#Change-the-index-of-a-series-to-shorter-names">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fireReports</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Cochice&quot;</span><span class="p">,</span> <span class="s">&quot;Pima&quot;</span><span class="p">,</span> <span class="s">&quot;Santa Cruz&quot;</span><span class="p">,</span> <span class="s">&quot;Maricopa&quot;</span><span class="p">,</span> <span class="s">&quot;Yuma&quot;</span><span class="p">]</span>
+<span class="n">fireReports</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[63]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Cochice        12
+Pima           42
+Santa Cruz    342
+Maricopa       13
+Yuma           52
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DataFrame-101">DataFrame 101<a class="anchor-link" href="#DataFrame-101">&#182;</a></h2><p>DataFrames are like R's Dataframes</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dataframe-from-a-dict-of-equal-length-lists-or-numpy-arrays">Create a dataframe from a dict of equal length lists or numpy arrays<a class="anchor-link" href="#Create-a-dataframe-from-a-dict-of-equal-length-lists-or-numpy-arrays">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;county&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Cochice&#39;</span><span class="p">,</span> <span class="s">&#39;Pima&#39;</span><span class="p">,</span> <span class="s">&#39;Santa Cruz&#39;</span><span class="p">,</span> <span class="s">&#39;Maricopa&#39;</span><span class="p">,</span> <span class="s">&#39;Yuma&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">2014</span><span class="p">,</span> <span class="mi">2014</span><span class="p">],</span> 
+        <span class="s">&#39;reports&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>reports</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>    Cochice</td>
+      <td>  4</td>
+      <td> 2012</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>       Pima</td>
+      <td> 24</td>
+      <td> 2012</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> Santa Cruz</td>
+      <td> 31</td>
+      <td> 2013</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>   Maricopa</td>
+      <td>  2</td>
+      <td> 2014</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>       Yuma</td>
+      <td>  3</td>
+      <td> 2014</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-the-order-of-the-columns-using-the-columns-attribute">Set the order of the columns using the columns attribute<a class="anchor-link" href="#Set-the-order-of-the-columns-using-the-columns-attribute">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">dfColumnOrdered</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;county&#39;</span><span class="p">,</span> <span class="s">&#39;year&#39;</span><span class="p">,</span> <span class="s">&#39;reports&#39;</span><span class="p">])</span>
+<span class="n">dfColumnOrdered</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[95]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>year</th>
+      <th>reports</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>    Cochice</td>
+      <td> 2012</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>       Pima</td>
+      <td> 2012</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> Santa Cruz</td>
+      <td> 2013</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>   Maricopa</td>
+      <td> 2014</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>       Yuma</td>
+      <td> 2014</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Add-a-column">Add a column<a class="anchor-link" href="#Add-a-column">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">dfColumnOrdered</span><span class="p">[</span><span class="s">&#39;newsCoverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">42.3</span><span class="p">,</span> <span class="mf">92.1</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">,</span> <span class="mf">39.3</span><span class="p">,</span> <span class="mf">30.2</span><span class="p">])</span>
+<span class="n">dfColumnOrdered</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[101]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>year</th>
+      <th>reports</th>
+      <th>newsCoverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>    Cochice</td>
+      <td> 2012</td>
+      <td>  4</td>
+      <td> 42.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>       Pima</td>
+      <td> 2012</td>
+      <td> 24</td>
+      <td> 92.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> Santa Cruz</td>
+      <td> 2013</td>
+      <td> 31</td>
+      <td> 12.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>   Maricopa</td>
+      <td> 2014</td>
+      <td>  2</td>
+      <td> 39.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>       Yuma</td>
+      <td> 2014</td>
+      <td>  3</td>
+      <td> 30.2</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Delete-a-column">Delete a column<a class="anchor-link" href="#Delete-a-column">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">del</span> <span class="n">dfColumnOrdered</span><span class="p">[</span><span class="s">&#39;newsCoverage&#39;</span><span class="p">]</span>
+<span class="n">dfColumnOrdered</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>year</th>
+      <th>reports</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>    Cochice</td>
+      <td> 2012</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>       Pima</td>
+      <td> 2012</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> Santa Cruz</td>
+      <td> 2013</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>   Maricopa</td>
+      <td> 2014</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>       Yuma</td>
+      <td> 2014</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Transpose-the-dataframe">Transpose the dataframe<a class="anchor-link" href="#Transpose-the-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">dfColumnOrdered</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[104]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>county</th>
+      <td> Cochice</td>
+      <td> Pima</td>
+      <td> Santa Cruz</td>
+      <td> Maricopa</td>
+      <td> Yuma</td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td>    2012</td>
+      <td> 2012</td>
+      <td>       2013</td>
+      <td>     2014</td>
+      <td> 2014</td>
+    </tr>
+    <tr>
+      <th>reports</th>
+      <td>       4</td>
+      <td>   24</td>
+      <td>         31</td>
+      <td>        2</td>
+      <td>    3</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 5 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>

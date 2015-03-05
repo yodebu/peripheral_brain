@@ -1,0 +1,156 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="while-Statement">while Statement<a class="anchor-link" href="#while-Statement">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong> Based on: A Byte of Python</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="While-loops-until-a-condition-is-true.">While loops until a condition is true.<a class="anchor-link" href="#While-loops-until-a-condition-is-true.">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-the-random-module.">Import the random module.<a class="anchor-link" href="#Import-the-random-module.">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-variable-of-the-true-number-of-deaths-of-an-event.">Create a variable of the true number of deaths of an event.<a class="anchor-link" href="#Create-a-variable-of-the-true-number-of-deaths-of-an-event.">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">deaths</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-variable-that-is-denotes-if-the-while-loop-for-keep-running.">Create a variable that is denotes if the while loop for keep running.<a class="anchor-link" href="#Create-a-variable-that-is-denotes-if-the-while-loop-for-keep-running.">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">running</span> <span class="o">=</span> <span class="k">True</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="while-running-is-True">while running is True<a class="anchor-link" href="#while-running-is-True">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+    <span class="c"># Create a variable that randomly create a integer between 0 and 10.</span>
+    <span class="n">guess</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c"># if guess equals deaths,</span>
+    <span class="k">if</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">deaths</span><span class="p">:</span>
+        <span class="c"># then print this</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Correct!&#39;</span><span class="p">)</span>
+        <span class="c"># and then also change running to False to stop the script</span>
+        <span class="n">running</span> <span class="o">=</span> <span class="k">False</span>
+    <span class="c"># else if guess is lower than deaths</span>
+    <span class="k">elif</span> <span class="n">guess</span> <span class="o">&lt;</span> <span class="n">deaths</span><span class="p">:</span>
+        <span class="c"># then print this</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s">&#39;No, it is higher.&#39;</span><span class="p">)</span>
+    <span class="c"># if guess is none of the above</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c"># print this</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s">&#39;No, it is lower&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>No, it is lower
+No, it is higher.
+Correct!
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By the output, you can see that the while script keeping generating guesses and checking them until guess matches deaths, in which case the script stops.</p>
+
+</div>
+</div>
+</div>

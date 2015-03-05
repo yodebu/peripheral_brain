@@ -1,0 +1,706 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Join-And-Merge-Pandas-Dataframe">Join And Merge Pandas Dataframe<a class="anchor-link" href="#Join-And-Merge-Pandas-Dataframe">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="import-modules">import modules<a class="anchor-link" href="#import-modules">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Image</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dataframe">Create a dataframe<a class="anchor-link" href="#Create-a-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;subject_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="s">&#39;3&#39;</span><span class="p">,</span> <span class="s">&#39;4&#39;</span><span class="p">,</span> <span class="s">&#39;5&#39;</span><span class="p">],</span>
+        <span class="s">&#39;first_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Alex&#39;</span><span class="p">,</span> <span class="s">&#39;Amy&#39;</span><span class="p">,</span> <span class="s">&#39;Allen&#39;</span><span class="p">,</span> <span class="s">&#39;Alice&#39;</span><span class="p">,</span> <span class="s">&#39;Ayoung&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;last_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Anderson&#39;</span><span class="p">,</span> <span class="s">&#39;Ackerman&#39;</span><span class="p">,</span> <span class="s">&#39;Ali&#39;</span><span class="p">,</span> <span class="s">&#39;Aoni&#39;</span><span class="p">,</span> <span class="s">&#39;Atiches&#39;</span><span class="p">]}</span>
+<span class="n">df_a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">])</span>
+<span class="n">df_a</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td>   Alex</td>
+      <td> Anderson</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 2</td>
+      <td>    Amy</td>
+      <td> Ackerman</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 3</td>
+      <td>  Allen</td>
+      <td>      Ali</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 4</td>
+      <td>  Alice</td>
+      <td>     Aoni</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 5</td>
+      <td> Ayoung</td>
+      <td>  Atiches</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-second-dataframe">Create a second dataframe<a class="anchor-link" href="#Create-a-second-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;subject_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;4&#39;</span><span class="p">,</span> <span class="s">&#39;5&#39;</span><span class="p">,</span> <span class="s">&#39;6&#39;</span><span class="p">,</span> <span class="s">&#39;7&#39;</span><span class="p">,</span> <span class="s">&#39;8&#39;</span><span class="p">],</span>
+        <span class="s">&#39;first_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Billy&#39;</span><span class="p">,</span> <span class="s">&#39;Brian&#39;</span><span class="p">,</span> <span class="s">&#39;Bran&#39;</span><span class="p">,</span> <span class="s">&#39;Bryce&#39;</span><span class="p">,</span> <span class="s">&#39;Betty&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;last_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Bonder&#39;</span><span class="p">,</span> <span class="s">&#39;Black&#39;</span><span class="p">,</span> <span class="s">&#39;Balwner&#39;</span><span class="p">,</span> <span class="s">&#39;Brice&#39;</span><span class="p">,</span> <span class="s">&#39;Btisan&#39;</span><span class="p">]}</span>
+<span class="n">df_b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">])</span>
+<span class="n">df_b</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 4</td>
+      <td> Billy</td>
+      <td>  Bonder</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 5</td>
+      <td> Brian</td>
+      <td>   Black</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 6</td>
+      <td>  Bran</td>
+      <td> Balwner</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 7</td>
+      <td> Bryce</td>
+      <td>   Brice</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 8</td>
+      <td> Betty</td>
+      <td>  Btisan</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-third-dataframe">Create a third dataframe<a class="anchor-link" href="#Create-a-third-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;subject_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="s">&#39;3&#39;</span><span class="p">,</span> <span class="s">&#39;4&#39;</span><span class="p">,</span> <span class="s">&#39;5&#39;</span><span class="p">,</span> <span class="s">&#39;7&#39;</span><span class="p">,</span> <span class="s">&#39;8&#39;</span><span class="p">,</span> <span class="s">&#39;9&#39;</span><span class="p">,</span> <span class="s">&#39;10&#39;</span><span class="p">,</span> <span class="s">&#39;11&#39;</span><span class="p">],</span>
+        <span class="s">&#39;test_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">51</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">16</span><span class="p">]}</span>
+<span class="n">df_n</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span><span class="s">&#39;test_id&#39;</span><span class="p">])</span>
+<span class="n">df_n</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject_id</th>
+      <th>test_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>  1</td>
+      <td> 51</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>  2</td>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>  3</td>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>  4</td>
+      <td> 61</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>  5</td>
+      <td> 16</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>  7</td>
+      <td> 14</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>  8</td>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>  9</td>
+      <td>  1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td> 10</td>
+      <td> 61</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td> 11</td>
+      <td> 16</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Join-the-two-dataframes-along-rows">Join the two dataframes along rows<a class="anchor-link" href="#Join-the-two-dataframes-along-rows">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">])</span>
+<span class="n">df_new</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td>   Alex</td>
+      <td> Anderson</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 2</td>
+      <td>    Amy</td>
+      <td> Ackerman</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 3</td>
+      <td>  Allen</td>
+      <td>      Ali</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 4</td>
+      <td>  Alice</td>
+      <td>     Aoni</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 5</td>
+      <td> Ayoung</td>
+      <td>  Atiches</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td> 4</td>
+      <td>  Billy</td>
+      <td>   Bonder</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 5</td>
+      <td>  Brian</td>
+      <td>    Black</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 6</td>
+      <td>   Bran</td>
+      <td>  Balwner</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 7</td>
+      <td>  Bryce</td>
+      <td>    Brice</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 8</td>
+      <td>  Betty</td>
+      <td>   Btisan</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Join-the-two-dataframes-along-columns">Join the two dataframes along columns<a class="anchor-link" href="#Join-the-two-dataframes-along-columns">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>subject_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td>   Alex</td>
+      <td> Anderson</td>
+      <td> 4</td>
+      <td> Billy</td>
+      <td>  Bonder</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 2</td>
+      <td>    Amy</td>
+      <td> Ackerman</td>
+      <td> 5</td>
+      <td> Brian</td>
+      <td>   Black</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 3</td>
+      <td>  Allen</td>
+      <td>      Ali</td>
+      <td> 6</td>
+      <td>  Bran</td>
+      <td> Balwner</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 4</td>
+      <td>  Alice</td>
+      <td>     Aoni</td>
+      <td> 7</td>
+      <td> Bryce</td>
+      <td>   Brice</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 5</td>
+      <td> Ayoung</td>
+      <td>  Atiches</td>
+      <td> 8</td>
+      <td> Betty</td>
+      <td>  Btisan</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-two-dataframes-along-the-subject_id-value">Merge two dataframes along the subject_id value<a class="anchor-link" href="#Merge-two-dataframes-along-the-subject_id-value">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_new</span><span class="p">,</span> <span class="n">df_n</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-two-dataframes-with-both-the-left-and-right-dataframes-using-the-subject_id-key">Merge two dataframes with both the left and right dataframes using the subject_id key<a class="anchor-link" href="#Merge-two-dataframes-with-both-the-left-and-right-dataframes-using-the-subject_id-key">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_new</span><span class="p">,</span> <span class="n">df_n</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-with-outer-join">Merge with outer join<a class="anchor-link" href="#Merge-with-outer-join">&#182;</a></h3><p>"Full outer join produces the set of all records in Table A and Table B, with matching records from both sides where available. If there is no match, the missing side will contain null." - <a href="http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/">source</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-with-inner-join">Merge with inner join<a class="anchor-link" href="#Merge-with-inner-join">&#182;</a></h3><p>"Inner join produces only the set of records that match in both Table A and Table B." - <a href="http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/">source</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;inner&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-with-right-join">Merge with right join<a class="anchor-link" href="#Merge-with-right-join">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-with-left-join">Merge with left join<a class="anchor-link" href="#Merge-with-left-join">&#182;</a></h3><p>"Left outer join produces a complete set of records from Table A, with the matching records (where available) in Table B. If there is no match, the right side will contain null." - <a href="http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/">source</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-while-adding-a-suffix-to-duplicate-column-names">Merge while adding a suffix to duplicate column names<a class="anchor-link" href="#Merge-while-adding-a-suffix-to-duplicate-column-names">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">&#39;subject_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;_left&#39;</span><span class="p">,</span> <span class="s">&#39;_right&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-based-on-indexes">Merge based on indexes<a class="anchor-link" href="#Merge-based-on-indexes">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>

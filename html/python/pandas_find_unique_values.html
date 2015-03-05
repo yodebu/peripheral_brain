@@ -1,0 +1,187 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Find-Unique-Values-In-Pandas-Dataframes">Find Unique Values In Pandas Dataframes<a class="anchor-link" href="#Find-Unique-Values-In-Pandas-Dataframes">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regiment&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;51st&#39;</span><span class="p">,</span> <span class="s">&#39;29th&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;19th&#39;</span><span class="p">,</span> <span class="s">&#39;12th&#39;</span><span class="p">,</span> <span class="s">&#39;101st&#39;</span><span class="p">,</span> <span class="s">&#39;90th&#39;</span><span class="p">,</span> <span class="s">&#39;30th&#39;</span><span class="p">,</span> <span class="s">&#39;193th&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;94th&#39;</span><span class="p">,</span> <span class="s">&#39;91th&#39;</span><span class="p">],</span> 
+            <span class="s">&#39;trucks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;MAZ-7310&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s">&#39;MAZ-7310&#39;</span><span class="p">,</span> <span class="s">&#39;MAZ-7310&#39;</span><span class="p">,</span> <span class="s">&#39;Tatra 810&#39;</span><span class="p">,</span> <span class="s">&#39;Tatra 810&#39;</span><span class="p">,</span> <span class="s">&#39;Tatra 810&#39;</span><span class="p">,</span> <span class="s">&#39;Tatra 810&#39;</span><span class="p">,</span> <span class="s">&#39;ZIS-150&#39;</span><span class="p">,</span> <span class="s">&#39;Tatra 810&#39;</span><span class="p">,</span> <span class="s">&#39;ZIS-150&#39;</span><span class="p">,</span> <span class="s">&#39;ZIS-150&#39;</span><span class="p">],</span>
+            <span class="s">&#39;tanks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Merkava Mark 4&#39;</span><span class="p">,</span> <span class="s">&#39;Merkava Mark 4&#39;</span><span class="p">,</span> <span class="s">&#39;Merkava Mark 4&#39;</span><span class="p">,</span> <span class="s">&#39;Leopard 2A6M&#39;</span><span class="p">,</span> <span class="s">&#39;Leopard 2A6M&#39;</span><span class="p">,</span> <span class="s">&#39;Leopard 2A6M&#39;</span><span class="p">,</span> <span class="s">&#39;Arjun MBT&#39;</span><span class="p">,</span> <span class="s">&#39;Leopard 2A6M&#39;</span><span class="p">,</span> <span class="s">&#39;Arjun MBT&#39;</span><span class="p">,</span> <span class="s">&#39;Arjun MBT&#39;</span><span class="p">,</span> <span class="s">&#39;Arjun MBT&#39;</span><span class="p">,</span> <span class="s">&#39;Arjun MBT&#39;</span><span class="p">],</span>
+            <span class="s">&#39;aircraft&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;none&#39;</span><span class="p">,</span> <span class="s">&#39;none&#39;</span><span class="p">,</span> <span class="s">&#39;none&#39;</span><span class="p">,</span> <span class="s">&#39;Harbin Z-9&#39;</span><span class="p">,</span> <span class="s">&#39;Harbin Z-9&#39;</span><span class="p">,</span> <span class="s">&#39;none&#39;</span><span class="p">,</span> <span class="s">&#39;Harbin Z-9&#39;</span><span class="p">,</span> <span class="s">&#39;SH-60B Seahawk&#39;</span><span class="p">,</span> <span class="s">&#39;SH-60B Seahawk&#39;</span><span class="p">,</span> <span class="s">&#39;SH-60B Seahawk&#39;</span><span class="p">,</span> <span class="s">&#39;SH-60B Seahawk&#39;</span><span class="p">,</span> <span class="s">&#39;SH-60B Seahawk&#39;</span><span class="p">]}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">,</span> <span class="s">&#39;trucks&#39;</span><span class="p">,</span> <span class="s">&#39;tanks&#39;</span><span class="p">,</span> <span class="s">&#39;aircraft&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># View the top few rows</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>trucks</th>
+      <th>tanks</th>
+      <th>aircraft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 51st</td>
+      <td>  MAZ-7310</td>
+      <td> Merkava Mark 4</td>
+      <td>       none</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 29th</td>
+      <td>       NaN</td>
+      <td> Merkava Mark 4</td>
+      <td>       none</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>  2nd</td>
+      <td>  MAZ-7310</td>
+      <td> Merkava Mark 4</td>
+      <td>       none</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 19th</td>
+      <td>  MAZ-7310</td>
+      <td>   Leopard 2A6M</td>
+      <td> Harbin Z-9</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 12th</td>
+      <td> Tatra 810</td>
+      <td>   Leopard 2A6M</td>
+      <td> Harbin Z-9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a list of unique values by turning the</span>
+<span class="c"># pandas column into a set</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">trucks</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[57]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[nan, &apos;MAZ-7310&apos;, &apos;ZIS-150&apos;, &apos;Tatra 810&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a list of unique values in df.trucks</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;trucks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[73]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;MAZ-7310&apos;, nan, &apos;Tatra 810&apos;, &apos;ZIS-150&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>

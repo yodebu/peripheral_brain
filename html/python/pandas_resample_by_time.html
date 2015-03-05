@@ -1,0 +1,1108 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Resampling-a-Time-Series-in-pandas">Resampling a Time Series in pandas<a class="anchor-link" href="#Resampling-a-Time-Series-in-pandas">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-required-modules">Import required modules<a class="anchor-link" href="#Import-required-modules">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dataframe">Create a dataframe<a class="anchor-link" href="#Create-a-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s">&#39;german_army&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">30000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s">&#39;allied_army&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s">&#39;1/1/2014&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s">&#39;H&#39;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-01-01 00:00:00</th>
+      <td> 21331</td>
+      <td> 39348</td>
+    </tr>
+    <tr>
+      <th>2014-01-01 01:00:00</th>
+      <td> 27465</td>
+      <td> 37775</td>
+    </tr>
+    <tr>
+      <th>2014-01-01 02:00:00</th>
+      <td> 20310</td>
+      <td> 21410</td>
+    </tr>
+    <tr>
+      <th>2014-01-01 03:00:00</th>
+      <td> 22145</td>
+      <td> 25203</td>
+    </tr>
+    <tr>
+      <th>2014-01-01 04:00:00</th>
+      <td> 22871</td>
+      <td> 36609</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Truncate-the-dataframe">Truncate the dataframe<a class="anchor-link" href="#Truncate-the-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">before</span><span class="o">=</span><span class="s">&#39;1/2/2014&#39;</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="s">&#39;1/3/2014&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[67]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-01-02 00:00:00</th>
+      <td> 27290</td>
+      <td> 36896</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 01:00:00</th>
+      <td> 26079</td>
+      <td> 31298</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 02:00:00</th>
+      <td> 28663</td>
+      <td> 26045</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 03:00:00</th>
+      <td> 23328</td>
+      <td> 39686</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 04:00:00</th>
+      <td> 25243</td>
+      <td> 24545</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 05:00:00</th>
+      <td> 29998</td>
+      <td> 23463</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 06:00:00</th>
+      <td> 22779</td>
+      <td> 27992</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 07:00:00</th>
+      <td> 25155</td>
+      <td> 33747</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 08:00:00</th>
+      <td> 29279</td>
+      <td> 32127</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 09:00:00</th>
+      <td> 23138</td>
+      <td> 27684</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 10:00:00</th>
+      <td> 24622</td>
+      <td> 24583</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 11:00:00</th>
+      <td> 29302</td>
+      <td> 22012</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 12:00:00</th>
+      <td> 29941</td>
+      <td> 25643</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 13:00:00</th>
+      <td> 28130</td>
+      <td> 35022</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 14:00:00</th>
+      <td> 26980</td>
+      <td> 24659</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 15:00:00</th>
+      <td> 20435</td>
+      <td> 27753</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 16:00:00</th>
+      <td> 29291</td>
+      <td> 25136</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 17:00:00</th>
+      <td> 24594</td>
+      <td> 35866</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 18:00:00</th>
+      <td> 28721</td>
+      <td> 32888</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 19:00:00</th>
+      <td> 23935</td>
+      <td> 25330</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 20:00:00</th>
+      <td> 22258</td>
+      <td> 30980</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 21:00:00</th>
+      <td> 22660</td>
+      <td> 39378</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 22:00:00</th>
+      <td> 24651</td>
+      <td> 32796</td>
+    </tr>
+    <tr>
+      <th>2014-01-02 23:00:00</th>
+      <td> 26162</td>
+      <td> 30592</td>
+    </tr>
+    <tr>
+      <th>2014-01-03 00:00:00</th>
+      <td> 21352</td>
+      <td> 38357</td>
+    </tr>
+  </tbody>
+</table>
+<p>25 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-the-dataframe's-index">Set the dataframe's index<a class="anchor-link" href="#Set-the-dataframe's-index">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-the-dataframe">View the dataframe<a class="anchor-link" href="#View-the-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[69]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06 00:00:00</th>
+      <td> 21331</td>
+      <td> 39348</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 01:00:00</th>
+      <td> 27465</td>
+      <td> 37775</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 02:00:00</th>
+      <td> 20310</td>
+      <td> 21410</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 03:00:00</th>
+      <td> 22145</td>
+      <td> 25203</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 04:00:00</th>
+      <td> 22871</td>
+      <td> 36609</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Lead-a-variable-1-hour">Lead a variable 1 hour<a class="anchor-link" href="#Lead-a-variable-1-hour">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[70]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06 00:00:00</th>
+      <td>   NaN</td>
+      <td>   NaN</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 01:00:00</th>
+      <td> 21331</td>
+      <td> 39348</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 02:00:00</th>
+      <td> 27465</td>
+      <td> 37775</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 03:00:00</th>
+      <td> 20310</td>
+      <td> 21410</td>
+    </tr>
+    <tr>
+      <th>2014-05-06 04:00:00</th>
+      <td> 22145</td>
+      <td> 25203</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Lag-a-variable-1-hour">Lag a variable 1 hour<a class="anchor-link" href="#Lag-a-variable-1-hour">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-09 23:00:00</th>
+      <td> 28359</td>
+      <td> 39177</td>
+    </tr>
+    <tr>
+      <th>2014-05-10 00:00:00</th>
+      <td> 27881</td>
+      <td> 29686</td>
+    </tr>
+    <tr>
+      <th>2014-05-10 01:00:00</th>
+      <td> 26585</td>
+      <td> 26210</td>
+    </tr>
+    <tr>
+      <th>2014-05-10 02:00:00</th>
+      <td> 22266</td>
+      <td> 35398</td>
+    </tr>
+    <tr>
+      <th>2014-05-10 03:00:00</th>
+      <td>   NaN</td>
+      <td>   NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-summing-up-the-value-of-each-hourly-observation">Aggregate into days by summing up the value of each hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-summing-up-the-value-of-each-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;sum&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 586399</td>
+      <td> 722666</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 622634</td>
+      <td> 716121</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 609257</td>
+      <td> 781811</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 589086</td>
+      <td> 672985</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 105091</td>
+      <td> 130471</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-averaging-up-the-value-of-each-hourly-observation">Aggregate into days by averaging up the value of each hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-averaging-up-the-value-of-each-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;mean&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[73]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 24433.291667</td>
+      <td> 30111.083333</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 25943.083333</td>
+      <td> 29838.375000</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 25385.708333</td>
+      <td> 32575.458333</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 24545.250000</td>
+      <td> 28041.041667</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 26272.750000</td>
+      <td> 32617.750000</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-taking-the-min-value-up-the-value-of-each-hourly-observation">Aggregate into days by taking the min value up the value of each hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-taking-the-min-value-up-the-value-of-each-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;min&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[74]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 20310</td>
+      <td> 20241</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 20435</td>
+      <td> 22012</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 20006</td>
+      <td> 20266</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 20089</td>
+      <td> 20308</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 22266</td>
+      <td> 26210</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-taking-the-median-value-of-each-day's-worth-of-hourly-observation">Aggregate into days by taking the median value of each day's worth of hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-taking-the-median-value-of-each-day's-worth-of-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;median&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[75]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 23820</td>
+      <td> 29733.0</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 25661</td>
+      <td> 29292.0</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 25276</td>
+      <td> 32969.0</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 24177</td>
+      <td> 26887.5</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 27233</td>
+      <td> 32542.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-taking-the-first-value-of-each-day's-worth-of-hourly-observation">Aggregate into days by taking the first value of each day's worth of hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-taking-the-first-value-of-each-day's-worth-of-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[76]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 21331</td>
+      <td> 39348</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 27290</td>
+      <td> 36896</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 21352</td>
+      <td> 38357</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 25561</td>
+      <td> 21868</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 28359</td>
+      <td> 39177</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-taking-the-last-value-of-each-day's-worth-of-hourly-observation">Aggregate into days by taking the last value of each day's worth of hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-taking-the-last-value-of-each-day's-worth-of-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;last&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>german_army</th>
+      <th>allied_army</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 24976</td>
+      <td> 29632</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 26162</td>
+      <td> 30592</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 28828</td>
+      <td> 36941</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 25573</td>
+      <td> 24839</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 22266</td>
+      <td> 35398</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aggregate-into-days-by-taking-the-first,-last,-highest,-and-lowest-value-of-each-day's-worth-of-hourly-observation">Aggregate into days by taking the first, last, highest, and lowest value of each day's worth of hourly observation<a class="anchor-link" href="#Aggregate-into-days-by-taking-the-first,-last,-highest,-and-lowest-value-of-each-day's-worth-of-hourly-observation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;ohlc&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[78]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left">german_army</th>
+      <th colspan="4" halign="left">allied_army</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>open</th>
+      <th>high</th>
+      <th>low</th>
+      <th>close</th>
+      <th>open</th>
+      <th>high</th>
+      <th>low</th>
+      <th>close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-06</th>
+      <td> 21331</td>
+      <td> 29557</td>
+      <td> 20310</td>
+      <td> 24976</td>
+      <td> 39348</td>
+      <td> 39348</td>
+      <td> 20241</td>
+      <td> 29632</td>
+    </tr>
+    <tr>
+      <th>2014-05-07</th>
+      <td> 27290</td>
+      <td> 29998</td>
+      <td> 20435</td>
+      <td> 26162</td>
+      <td> 36896</td>
+      <td> 39686</td>
+      <td> 22012</td>
+      <td> 30592</td>
+    </tr>
+    <tr>
+      <th>2014-05-08</th>
+      <td> 21352</td>
+      <td> 29253</td>
+      <td> 20006</td>
+      <td> 28828</td>
+      <td> 38357</td>
+      <td> 39996</td>
+      <td> 20266</td>
+      <td> 36941</td>
+    </tr>
+    <tr>
+      <th>2014-05-09</th>
+      <td> 25561</td>
+      <td> 29792</td>
+      <td> 20089</td>
+      <td> 25573</td>
+      <td> 21868</td>
+      <td> 38827</td>
+      <td> 20308</td>
+      <td> 24839</td>
+    </tr>
+    <tr>
+      <th>2014-05-10</th>
+      <td> 28359</td>
+      <td> 28359</td>
+      <td> 22266</td>
+      <td> 22266</td>
+      <td> 39177</td>
+      <td> 39177</td>
+      <td> 26210</td>
+      <td> 35398</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 8 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>

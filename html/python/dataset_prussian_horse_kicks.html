@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Prussian Horse Kick Data</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Prussian-Horse-Kick-Data">Prussian Horse Kick Data<a class="anchor-link" href="#Prussian-Horse-Kick-Data">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="http://www.math.uah.edu/stat/data/HorseKicks.html">Original description</a>: "The data above give the number of soilders in the Prussian cavalry killed by horse kicks, by corp membership and by year. The years are from 1875 to 1894, and there are 14 different cavalry corps: the first column corresponds to the guard corp and the other columns to corps 1 through 11, 14, and 15. The data are from Distributome project and are derived from the book by Andrews and Herzberg. The original source of the data is the classic book by von Bortkiewicz (references are given below). The data are famous because they seem to fit the Poisson model reasonably well."</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-the-pandas-module">Import the pandas module<a class="anchor-link" href="#Import-the-pandas-module">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-all-the-columns-of-the-dataframe-as-series-(called-vectors-in-R)">Create all the columns of the dataframe as series (called vectors in R)<a class="anchor-link" href="#Create-all-the-columns-of-the-dataframe-as-series-(called-vectors-in-R)">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">year</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1875</span><span class="p">,</span> <span class="mi">1876</span><span class="p">,</span> <span class="mi">1877</span><span class="p">,</span> <span class="mi">1878</span><span class="p">,</span> <span class="mi">1879</span><span class="p">,</span> <span class="mi">1880</span><span class="p">,</span> <span class="mi">1881</span><span class="p">,</span> <span class="mi">1882</span><span class="p">,</span> <span class="mi">1883</span><span class="p">,</span> <span class="mi">1884</span><span class="p">,</span>
+                  <span class="mi">1885</span><span class="p">,</span> <span class="mi">1886</span><span class="p">,</span> <span class="mi">1887</span><span class="p">,</span> <span class="mi">1888</span><span class="p">,</span> <span class="mi">1889</span><span class="p">,</span> <span class="mi">1890</span><span class="p">,</span> <span class="mi">1891</span><span class="p">,</span> <span class="mi">1892</span><span class="p">,</span> <span class="mi">1893</span><span class="p">,</span> <span class="mi">1894</span><span class="p">])</span>
+<span class="n">guard_corps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">corps_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_7</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">corps_9</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_10</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">corps_11</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">corps_14</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">corps_15</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dictionary-variable-that-assigns-variable-names">Create a dictionary variable that assigns variable names<a class="anchor-link" href="#Create-a-dictionary-variable-that-assigns-variable-names">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span><span class="p">,</span> <span class="n">guard_corps</span> <span class="o">=</span> <span class="n">guard_corps</span><span class="p">,</span> <span class="n">corps_1</span> <span class="o">=</span> <span class="n">corps_1</span><span class="p">,</span>
+                 <span class="n">corps_2</span> <span class="o">=</span> <span class="n">corps_2</span><span class="p">,</span> <span class="n">corps_3</span> <span class="o">=</span> <span class="n">corps_3</span><span class="p">,</span> <span class="n">corps_4</span> <span class="o">=</span> <span class="n">corps_4</span><span class="p">,</span>
+                 <span class="n">corps_5</span> <span class="o">=</span> <span class="n">corps_5</span><span class="p">,</span> <span class="n">corps_6</span> <span class="o">=</span> <span class="n">corps_6</span><span class="p">,</span> <span class="n">corps_7</span> <span class="o">=</span> <span class="n">corps_7</span><span class="p">,</span>
+                 <span class="n">corps_8</span> <span class="o">=</span> <span class="n">corps_8</span><span class="p">,</span> <span class="n">corps_9</span> <span class="o">=</span> <span class="n">corps_9</span><span class="p">,</span> <span class="n">corps_10</span> <span class="o">=</span> <span class="n">corps_10</span><span class="p">,</span>
+                 <span class="n">corps_11</span> <span class="o">=</span> <span class="n">corps_11</span> <span class="p">,</span> <span class="n">corps_14</span> <span class="o">=</span> <span class="n">corps_14</span><span class="p">,</span> <span class="n">corps_15</span> <span class="o">=</span> <span class="n">corps_15</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dataframe-and-set-the-order-of-the-columns-using-the-columns-attribute">Create a dataframe and set the order of the columns using the columns attribute<a class="anchor-link" href="#Create-a-dataframe-and-set-the-order-of-the-columns-using-the-columns-attribute">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">horsekick_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;year&#39;</span><span class="p">,</span> <span class="s">&#39;guard_corps&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_1&#39;</span><span class="p">,</span> <span class="s">&#39;corps_2&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_3&#39;</span><span class="p">,</span> <span class="s">&#39;corps_4&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_5&#39;</span><span class="p">,</span> <span class="s">&#39;corps_6&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_7&#39;</span><span class="p">,</span> <span class="s">&#39;corps_8&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_9&#39;</span><span class="p">,</span> <span class="s">&#39;corps_10&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_11&#39;</span><span class="p">,</span> <span class="s">&#39;corps_14&#39;</span><span class="p">,</span>
+                                                    <span class="s">&#39;corps_15&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-the-dataframe">View the dataframe<a class="anchor-link" href="#View-the-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">horsekick_data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>guard_corps</th>
+      <th>corps_1</th>
+      <th>corps_2</th>
+      <th>corps_3</th>
+      <th>corps_4</th>
+      <th>corps_5</th>
+      <th>corps_6</th>
+      <th>corps_7</th>
+      <th>corps_8</th>
+      <th>corps_9</th>
+      <th>corps_10</th>
+      <th>corps_11</th>
+      <th>corps_14</th>
+      <th>corps_15</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0 </th>
+      <td> 1875</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>1 </th>
+      <td> 1876</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2 </th>
+      <td> 1877</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>3 </th>
+      <td> 1878</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>4 </th>
+      <td> 1879</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>5 </th>
+      <td> 1880</td>
+      <td> 0</td>
+      <td> 3</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 4</td>
+      <td> 3</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>6 </th>
+      <td> 1881</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>7 </th>
+      <td> 1882</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 4</td>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>8 </th>
+      <td> 1883</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 3</td>
+      <td> 0</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>9 </th>
+      <td> 1884</td>
+      <td> 3</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td> 1885</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td> 1886</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 3</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td> 1887</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 3</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td> 1888</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td> 1889</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td> 1890</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td> 1891</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 3</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td> 1892</td>
+      <td> 1</td>
+      <td> 3</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 3</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td> 1893</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 3</td>
+      <td> 0</td>
+      <td> 0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td> 1894</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

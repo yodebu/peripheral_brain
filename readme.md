@@ -30,8 +30,7 @@ This is a folder to place the original material used to create the site that mig
 - **css/styles.css** - A css file to style the site.
 
 ### html/
-- **html/header.partial** - A partial file containing the header used to wrap the top part of the ipython notebooks.
-- **html/footer.partial** - A partial file containing the footer used to wrap the lower part of the ipython notebooks.
+- **html/template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
 - **html/test.html** - A test post. Might be outdated.
 - **html/convert.command** - A short script for converting ipython notebooks into their basic template.
 

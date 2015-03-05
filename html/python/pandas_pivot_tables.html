@@ -1,0 +1,397 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Pivot-Tables-In-Pandas">Pivot Tables In Pandas<a class="anchor-link" href="#Pivot-Tables-In-Pandas">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="import-modules">import modules<a class="anchor-link" href="#import-modules">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-dataframe">Create dataframe<a class="anchor-link" href="#Create-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regiment&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;company&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span><span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Miller&#39;</span><span class="p">,</span> <span class="s">&#39;Jacobson&#39;</span><span class="p">,</span> <span class="s">&#39;Ali&#39;</span><span class="p">,</span> <span class="s">&#39;Milner&#39;</span><span class="p">,</span> <span class="s">&#39;Cooze&#39;</span><span class="p">,</span> <span class="s">&#39;Jacon&#39;</span><span class="p">,</span> <span class="s">&#39;Ryaner&#39;</span><span class="p">,</span> <span class="s">&#39;Sone&#39;</span><span class="p">,</span> <span class="s">&#39;Sloan&#39;</span><span class="p">,</span> <span class="s">&#39;Piger&#39;</span><span class="p">,</span> <span class="s">&#39;Riani&#39;</span><span class="p">,</span> <span class="s">&#39;Ali&#39;</span><span class="p">],</span> 
+        <span class="s">&#39;preTestScore&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s">&#39;postTestScore&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">70</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">,</span> <span class="s">&#39;company&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;preTestScore&#39;</span><span class="p">,</span> <span class="s">&#39;postTestScore&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>name</th>
+      <th>preTestScore</th>
+      <th>postTestScore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0 </th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td>   Miller</td>
+      <td>  4</td>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>1 </th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> Jacobson</td>
+      <td> 24</td>
+      <td> 94</td>
+    </tr>
+    <tr>
+      <th>2 </th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>      Ali</td>
+      <td> 31</td>
+      <td> 57</td>
+    </tr>
+    <tr>
+      <th>3 </th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>   Milner</td>
+      <td>  2</td>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>4 </th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td>    Cooze</td>
+      <td>  3</td>
+      <td> 70</td>
+    </tr>
+    <tr>
+      <th>5 </th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td>    Jacon</td>
+      <td>  4</td>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>6 </th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td>   Ryaner</td>
+      <td> 24</td>
+      <td> 94</td>
+    </tr>
+    <tr>
+      <th>7 </th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td>     Sone</td>
+      <td> 31</td>
+      <td> 57</td>
+    </tr>
+    <tr>
+      <th>8 </th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>    Sloan</td>
+      <td>  2</td>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>9 </th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>    Piger</td>
+      <td>  3</td>
+      <td> 70</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>    Riani</td>
+      <td>  2</td>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>      Ali</td>
+      <td>  3</td>
+      <td> 70</td>
+    </tr>
+  </tbody>
+</table>
+<p>12 rows × 5 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-pivot-table-of-group-means,-by-company-and-regiment">Create a pivot table of group means, by company and regiment<a class="anchor-link" href="#Create-a-pivot-table-of-group-means,-by-company-and-regiment">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">,</span><span class="s">&#39;company&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>postTestScore</th>
+      <th>preTestScore</th>
+    </tr>
+    <tr>
+      <th>regiment</th>
+      <th>company</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Dragoons</th>
+      <th>1st</th>
+      <td> 47.5</td>
+      <td>  3.5</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 75.5</td>
+      <td> 27.5</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Nighthawks</th>
+      <th>1st</th>
+      <td> 59.5</td>
+      <td> 14.0</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 59.5</td>
+      <td> 16.5</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Scouts</th>
+      <th>1st</th>
+      <td> 66.0</td>
+      <td>  2.5</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 66.0</td>
+      <td>  2.5</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-pivot-table-of-group-score-counts,-by-company-and-regimensts">Create a pivot table of group score counts, by company and regimensts<a class="anchor-link" href="#Create-a-pivot-table-of-group-score-counts,-by-company-and-regimensts">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">,</span><span class="s">&#39;company&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s">&#39;count&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>company</th>
+      <th>name</th>
+      <th>postTestScore</th>
+      <th>preTestScore</th>
+      <th>regiment</th>
+    </tr>
+    <tr>
+      <th>regiment</th>
+      <th>company</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Dragoons</th>
+      <th>1st</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Nighthawks</th>
+      <th>1st</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Scouts</th>
+      <th>1st</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>2nd</th>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+      <td> 2</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 5 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>

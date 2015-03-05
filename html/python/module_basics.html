@@ -1,0 +1,285 @@
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Module-Basics">Module Basics<a class="anchor-link" href="#Module-Basics">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Import-the-module-sys.">Import the module sys.<a class="anchor-link" href="#Import-the-module-sys.">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">sys</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Import-just-the-sqrt-function-from-the-module-math.">Import just the sqrt function from the module math.<a class="anchor-link" href="#Import-just-the-sqrt-function-from-the-module-math.">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Import-the-pandas-module-as-the-alias-pd">Import the pandas module as the alias pd<a class="anchor-link" href="#Import-the-pandas-module-as-the-alias-pd">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="View-all-the-names-in-a-module">View all the names in a module<a class="anchor-link" href="#View-all-the-names-in-a-module">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">dir</span><span class="p">(</span><span class="n">pd</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Categorical&apos;,
+ &apos;DataFrame&apos;,
+ &apos;DateOffset&apos;,
+ &apos;DateRange&apos;,
+ &apos;DatetimeIndex&apos;,
+ &apos;ExcelFile&apos;,
+ &apos;ExcelWriter&apos;,
+ &apos;Expr&apos;,
+ &apos;Float64Index&apos;,
+ &apos;HDFStore&apos;,
+ &apos;Index&apos;,
+ &apos;Int64Index&apos;,
+ &apos;LooseVersion&apos;,
+ &apos;MultiIndex&apos;,
+ &apos;NaT&apos;,
+ &apos;Panel&apos;,
+ &apos;Panel4D&apos;,
+ &apos;Period&apos;,
+ &apos;PeriodIndex&apos;,
+ &apos;Series&apos;,
+ &apos;SparseArray&apos;,
+ &apos;SparseDataFrame&apos;,
+ &apos;SparseList&apos;,
+ &apos;SparsePanel&apos;,
+ &apos;SparseSeries&apos;,
+ &apos;SparseTimeSeries&apos;,
+ &apos;Term&apos;,
+ &apos;TimeGrouper&apos;,
+ &apos;TimeSeries&apos;,
+ &apos;Timestamp&apos;,
+ &apos;WidePanel&apos;,
+ &apos;__builtins__&apos;,
+ &apos;__cached__&apos;,
+ &apos;__doc__&apos;,
+ &apos;__docformat__&apos;,
+ &apos;__file__&apos;,
+ &apos;__initializing__&apos;,
+ &apos;__loader__&apos;,
+ &apos;__name__&apos;,
+ &apos;__package__&apos;,
+ &apos;__path__&apos;,
+ &apos;__version__&apos;,
+ &apos;_np_version&apos;,
+ &apos;_np_version_under1p6&apos;,
+ &apos;_np_version_under1p7&apos;,
+ &apos;_np_version_under1p8&apos;,
+ &apos;_sparse&apos;,
+ &apos;algos&apos;,
+ &apos;bdate_range&apos;,
+ &apos;compat&apos;,
+ &apos;computation&apos;,
+ &apos;concat&apos;,
+ &apos;core&apos;,
+ &apos;crosstab&apos;,
+ &apos;cut&apos;,
+ &apos;date_range&apos;,
+ &apos;datetime&apos;,
+ &apos;datetools&apos;,
+ &apos;describe_option&apos;,
+ &apos;eval&apos;,
+ &apos;ewma&apos;,
+ &apos;ewmcorr&apos;,
+ &apos;ewmcov&apos;,
+ &apos;ewmstd&apos;,
+ &apos;ewmvar&apos;,
+ &apos;ewmvol&apos;,
+ &apos;expanding_apply&apos;,
+ &apos;expanding_corr&apos;,
+ &apos;expanding_corr_pairwise&apos;,
+ &apos;expanding_count&apos;,
+ &apos;expanding_cov&apos;,
+ &apos;expanding_kurt&apos;,
+ &apos;expanding_max&apos;,
+ &apos;expanding_mean&apos;,
+ &apos;expanding_median&apos;,
+ &apos;expanding_min&apos;,
+ &apos;expanding_quantile&apos;,
+ &apos;expanding_skew&apos;,
+ &apos;expanding_std&apos;,
+ &apos;expanding_sum&apos;,
+ &apos;expanding_var&apos;,
+ &apos;factorize&apos;,
+ &apos;fama_macbeth&apos;,
+ &apos;get_dummies&apos;,
+ &apos;get_option&apos;,
+ &apos;get_store&apos;,
+ &apos;groupby&apos;,
+ &apos;hashtable&apos;,
+ &apos;index&apos;,
+ &apos;infer_freq&apos;,
+ &apos;info&apos;,
+ &apos;io&apos;,
+ &apos;isnull&apos;,
+ &apos;json&apos;,
+ &apos;lib&apos;,
+ &apos;load&apos;,
+ &apos;lreshape&apos;,
+ &apos;match&apos;,
+ &apos;melt&apos;,
+ &apos;merge&apos;,
+ &apos;msgpack&apos;,
+ &apos;notnull&apos;,
+ &apos;np&apos;,
+ &apos;offsets&apos;,
+ &apos;ols&apos;,
+ &apos;option_context&apos;,
+ &apos;options&apos;,
+ &apos;ordered_merge&apos;,
+ &apos;pandas&apos;,
+ &apos;parser&apos;,
+ &apos;period_range&apos;,
+ &apos;pivot&apos;,
+ &apos;pivot_table&apos;,
+ &apos;plot_params&apos;,
+ &apos;pnow&apos;,
+ &apos;qcut&apos;,
+ &apos;read_clipboard&apos;,
+ &apos;read_csv&apos;,
+ &apos;read_excel&apos;,
+ &apos;read_fwf&apos;,
+ &apos;read_gbq&apos;,
+ &apos;read_hdf&apos;,
+ &apos;read_html&apos;,
+ &apos;read_json&apos;,
+ &apos;read_msgpack&apos;,
+ &apos;read_pickle&apos;,
+ &apos;read_sql&apos;,
+ &apos;read_stata&apos;,
+ &apos;read_table&apos;,
+ &apos;reset_option&apos;,
+ &apos;rolling_apply&apos;,
+ &apos;rolling_corr&apos;,
+ &apos;rolling_corr_pairwise&apos;,
+ &apos;rolling_count&apos;,
+ &apos;rolling_cov&apos;,
+ &apos;rolling_kurt&apos;,
+ &apos;rolling_max&apos;,
+ &apos;rolling_mean&apos;,
+ &apos;rolling_median&apos;,
+ &apos;rolling_min&apos;,
+ &apos;rolling_quantile&apos;,
+ &apos;rolling_skew&apos;,
+ &apos;rolling_std&apos;,
+ &apos;rolling_sum&apos;,
+ &apos;rolling_var&apos;,
+ &apos;rolling_window&apos;,
+ &apos;save&apos;,
+ &apos;scatter_matrix&apos;,
+ &apos;set_eng_float_format&apos;,
+ &apos;set_option&apos;,
+ &apos;show_versions&apos;,
+ &apos;sparse&apos;,
+ &apos;stats&apos;,
+ &apos;to_datetime&apos;,
+ &apos;to_msgpack&apos;,
+ &apos;to_pickle&apos;,
+ &apos;to_timedelta&apos;,
+ &apos;tools&apos;,
+ &apos;tseries&apos;,
+ &apos;tslib&apos;,
+ &apos;unique&apos;,
+ &apos;util&apos;,
+ &apos;value_counts&apos;,
+ &apos;value_range&apos;,
+ &apos;version&apos;,
+ &apos;wide_to_long&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
