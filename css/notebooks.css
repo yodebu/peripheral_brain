@@ -114,7 +114,7 @@ div.output_area pre{
 
 div.output_subarea{
     padding:0.44em 0.4em 0.4em 1px;
-    margin-left:6px;
+    margin-left:0px;
     -webkit-box-flex:1;
     -moz-box-flex:1;
     box-flex:1;}
