@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stacked Percentage Bar Plot In MatPlotLib</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -150,10 +182,10 @@
 <span class="n">bar_width</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c"># positions of the left bar-boundaries</span>
-<span class="n">bar_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">]))]</span> 
+<span class="n">bar_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">]))]</span>
 
 <span class="c"># positions of the x-axis ticks (center of the bars as bar labels)</span>
-<span class="n">tick_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">bar_width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar_l</span><span class="p">]</span> 
+<span class="n">tick_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">bar_width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bar_l</span><span class="p">]</span>
 
 <span class="c"># Create the total score for each participant</span>
 <span class="n">totals</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="n">k</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;pre_score&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;mid_score&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;post_score&#39;</span><span class="p">])]</span>
@@ -168,13 +200,13 @@
 <span class="n">post_rel</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="n">j</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span>  <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;post_score&#39;</span><span class="p">],</span> <span class="n">totals</span><span class="p">)]</span>
 
 <span class="c"># Create a bar chart in position bar_1</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span>
        <span class="c"># using pre_rel data</span>
-       <span class="n">pre_rel</span><span class="p">,</span> 
+       <span class="n">pre_rel</span><span class="p">,</span>
        <span class="c"># labeled </span>
-       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Pre Score&#39;</span><span class="p">,</span> 
+       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Pre Score&#39;</span><span class="p">,</span>
        <span class="c"># with alpha</span>
-       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
        <span class="c"># with color</span>
        <span class="n">color</span><span class="o">=</span><span class="s">&#39;#019600&#39;</span><span class="p">,</span>
        <span class="c"># with bar width</span>
@@ -184,17 +216,17 @@
        <span class="p">)</span>
 
 <span class="c"># Create a bar chart in position bar_1</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span>
        <span class="c"># using mid_rel data</span>
-       <span class="n">mid_rel</span><span class="p">,</span> 
+       <span class="n">mid_rel</span><span class="p">,</span>
        <span class="c"># with pre_rel</span>
-       <span class="n">bottom</span><span class="o">=</span><span class="n">pre_rel</span><span class="p">,</span> 
+       <span class="n">bottom</span><span class="o">=</span><span class="n">pre_rel</span><span class="p">,</span>
        <span class="c"># labeled </span>
-       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Mid Score&#39;</span><span class="p">,</span> 
+       <span class="n">label</span><span class="o">=</span><span class="s">&#39;Mid Score&#39;</span><span class="p">,</span>
        <span class="c"># with alpha</span>
-       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
        <span class="c"># with color</span>
-       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#3C5F5A&#39;</span><span class="p">,</span> 
+       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#3C5F5A&#39;</span><span class="p">,</span>
        <span class="c"># with bar width</span>
        <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span>
        <span class="c"># with border color</span>
@@ -202,17 +234,17 @@
        <span class="p">)</span>
 
 <span class="c"># Create a bar chart in position bar_1</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_l</span><span class="p">,</span>
        <span class="c"># using post_rel data</span>
-       <span class="n">post_rel</span><span class="p">,</span> 
+       <span class="n">post_rel</span><span class="p">,</span>
        <span class="c"># with pre_rel and mid_rel on bottom</span>
-       <span class="n">bottom</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pre_rel</span><span class="p">,</span> <span class="n">mid_rel</span><span class="p">)],</span> 
+       <span class="n">bottom</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pre_rel</span><span class="p">,</span> <span class="n">mid_rel</span><span class="p">)],</span>
        <span class="c"># labeled </span>
        <span class="n">label</span><span class="o">=</span><span class="s">&#39;Post Score&#39;</span><span class="p">,</span>
        <span class="c"># with alpha</span>
-       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
        <span class="c"># with color</span>
-       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#219AD8&#39;</span><span class="p">,</span> 
+       <span class="n">color</span><span class="o">=</span><span class="s">&#39;#219AD8&#39;</span><span class="p">,</span>
        <span class="c"># with bar width</span>
        <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span>
        <span class="c"># with border color</span>
@@ -372,3 +404,57 @@ o/XGVZA3XWw5O8r/mD3v3f8AcEiuplgu641xGV/a6IpkWsIXAOxgxmUAAAAAAAAAAAAAAAAAAAAA
 </div>
 
 </div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

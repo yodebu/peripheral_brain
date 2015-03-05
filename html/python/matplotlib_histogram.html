@@ -1,3 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Histograms In MatPlotLib</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -282,16 +312,16 @@
 <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data2</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">2000</span><span class="p">)</span> <span class="c"># fixed bin size</span>
 
 <span class="c"># Plot a histogram of attacker size</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> 
-         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> 
-         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span>
+         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
          <span class="n">color</span><span class="o">=</span><span class="s">&#39;#EDD834&#39;</span><span class="p">,</span>
          <span class="n">label</span><span class="o">=</span><span class="s">&#39;Attacker&#39;</span><span class="p">)</span>
 
 <span class="c"># Plot a histogram of defender size</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> 
-         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> 
-         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span>
+         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
          <span class="n">color</span><span class="o">=</span><span class="s">&#39;#887E43&#39;</span><span class="p">,</span>
          <span class="n">label</span><span class="o">=</span><span class="s">&#39;Defender&#39;</span><span class="p">)</span>
 
@@ -520,29 +550,29 @@ k8jRSe/0FhERERERERERERERERERERERERERETl8/wdefJdzOVauoQAAAABJRU5ErkJggg==
 
 <span class="c"># Create 10 bins with the minimum </span>
 <span class="c"># being the smallest value of data1 and data2 </span>
-<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data1</span> <span class="o">+</span> <span class="n">data2</span><span class="p">),</span> 
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data1</span> <span class="o">+</span> <span class="n">data2</span><span class="p">),</span>
                    <span class="c"># the max being the highest value</span>
                    <span class="nb">max</span><span class="p">(</span><span class="n">data1</span> <span class="o">+</span> <span class="n">data2</span><span class="p">),</span>
                    <span class="c"># and divided into 10 bins</span>
                    <span class="mi">10</span><span class="p">)</span>
 
 <span class="c"># Plot a histogram of attacker size</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span>
          <span class="c"># with bins defined as</span>
-         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> 
+         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
          <span class="c"># with alpha</span>
-         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
          <span class="c"># with color</span>
          <span class="n">color</span><span class="o">=</span><span class="s">&#39;#EDD834&#39;</span><span class="p">,</span>
          <span class="c"># labelled attacker</span>
          <span class="n">label</span><span class="o">=</span><span class="s">&#39;Attacker&#39;</span><span class="p">)</span>
 
 <span class="c"># Plot a histogram of defender size</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span>
          <span class="c"># with bins defined as</span>
-         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> 
+         <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span>
          <span class="c"># with alpha</span>
-         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
          <span class="c"># with color</span>
          <span class="n">color</span><span class="o">=</span><span class="s">&#39;#887E43&#39;</span><span class="p">,</span>
          <span class="c"># labeled defender</span>
@@ -756,3 +786,59 @@ REREREREREREREREREREREREREQON/8fLXgU+GMXXJkAAAAASUVORK5CYII=
 </div>
 
 </div>
+
+
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+
