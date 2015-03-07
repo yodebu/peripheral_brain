@@ -25,23 +25,23 @@ a:active { color:#B23921; }
 
 .row {
   background-color: #F2602F;
-  padding:.5em;
+  padding:.4em;
   color: #fff;
   margin-bottom:1em;
+  border-bottom: 4px solid #ccc;
 }
 
 .row h2{
-margin:0;
+margin:0 0 -.5px 0;
 padding: 0;
 }
 
 .row nav{
 float:right;
-margin-top:-1.28em;
+margin-top:-1.21em;
 }
 
 .row a, .row a:hover, .row a:visited{
-font-weight: bold;
 color: #fff;
 text-decoration: none;
 }
@@ -96,6 +96,7 @@ footer {
 .post-list li a{
 text-decoration: none;
 font-family: sans-serif;
+font-size:.85em;
 }
 
 .repo_link a{
