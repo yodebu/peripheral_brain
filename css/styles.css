@@ -32,13 +32,13 @@ a:active { color:#B23921; }
 }
 
 .row h2{
-margin:0 0 -.5px 0;
+margin:0 0 -7px 0;
 padding: 0;
 }
 
 .row nav{
 float:right;
-margin-top:-1.21em;
+margin-top:-1em;
 }
 
 .row a, .row a:hover, .row a:visited{
