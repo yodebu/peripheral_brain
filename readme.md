@@ -30,13 +30,19 @@ This is a folder to place the original material used to create the site that mig
 - **css/styles.css** - A css file to style the site.
 
 ### html/
-- **html/template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
-- **html/test.html** - A test post. Might be outdated.
-- **html/convert.command** - A short script for converting ipython notebooks into their basic template.
+
+- **template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
+
+### scripts/
+
+Scripts used the run the site.
+
+- **html/nb_to_html_all.command** - A script for converting all .pynb files in the current directory into their basic template.
+- **html/nb_to_html_single.command** - A script for converting a single .pynb file into its basic template.
 
 ### js/
 
-Javascript... so who knows.
+Javascript files.
 
 ### notebooks/
 
