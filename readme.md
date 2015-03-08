@@ -1,6 +1,6 @@
-# Welcome To The Repo For Chris's Blog
+# Chris Albon's "Blog"
 
-In an attempt to combine the wonders of working in iPython with a personal blog, and following a conversation with Sebastian Raschka about it, I decided the best strategy to take would be to create a static html "wrapper" that would be able to take iPython notebook html export files and make them pretty.
+In an attempt to combine the wonders of working in iPython with a personal site, and following a conversation with Sebastian Raschka about it, I decided the best strategy to take would be to create a static html "wrapper" that would be able to take iPython notebook html export files and make them pretty.
 
 The workflow for blogging is as follows:
 1. Write a post in an iPython notebook in the blog's repo.
