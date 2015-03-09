@@ -8,7 +8,7 @@
 body {
   font-family: sans-serif;
   background: #E6E7E3;
-  color: #222;
+  color: #333333;
 }
 
 
@@ -25,9 +25,9 @@ a:active { color:#B23921; }
 
 .row {
   background-color: #E74C3C;
+  border-bottom: 1px solid #C74134;
   padding: .7em;
   color: #fff;
-  border-bottom: 1px solid #C74134;
   font-size: .95em;
 }
 
