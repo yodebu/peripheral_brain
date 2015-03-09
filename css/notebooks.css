@@ -223,6 +223,12 @@ Source: http://www.sebastianraschka.com/CSS/codehilite.css
     font-size: 14px;
     overflow: auto;
     padding: 0px 10px;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+
 }
 
 .notebook code{
@@ -232,7 +238,13 @@ Source: http://www.sebastianraschka.com/CSS/codehilite.css
   border: 1px solid #eaeaea;
   background-color: #f8f8f8;
   font-size: 13px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+ }
 
 
 .notebook pre code {
@@ -303,6 +315,7 @@ Tables
 .notebook td,.notebook th{
     text-align:left;
     vertical-align:middle;
-    padding:4px;}
+    padding:4px;
+    word-break:break-all;}
 
 .notebook th{font-weight:bold;}
