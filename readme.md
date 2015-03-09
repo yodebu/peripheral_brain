@@ -1,4 +1,8 @@
-# Chris Albon's "Blog"
+# Chris Albon's Peripheral Brain
+
+In medicine, a peripheral brain is a repository of all the knowledge that is important, but not important enough to keep in your brain.
+
+
 
 In an attempt to combine the wonders of working in iPython with a personal site, and following a conversation with Sebastian Raschka about it, I decided the best strategy to take would be to create a static html "wrapper" that would be able to take iPython notebook html export files and make them pretty.
 

@@ -127,6 +127,10 @@ div.output_stderr{background:#fdd;}
 
 div.output_latex{text-align:left;}
 
+div.output_latex{text-align:left;}
+
+
+
 /* ---------------------------------------------------------
 Code Cell Highlighting
 Source: http://www.sebastianraschka.com/CSS/codehilite.css
@@ -319,3 +323,13 @@ Tables
     word-break:break-all;}
 
 .notebook th{font-weight:bold;}
+
+/* ---------------------------------------------------------
+Images
+---------------------------------------------------------*/
+
+.notebook img{
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+    display:block;}
