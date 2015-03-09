@@ -14,8 +14,8 @@ body {
 
 /* Default link styling */
 a:link {
-  color:#3498DB}
-a:visited { color:#3598E0; }
+  color:#254CD1}
+a:visited { color:#9C0CE8; }
 a:hover, a:focus { color:#E74C3C; }
 a:active { color:#B23921; }
 
