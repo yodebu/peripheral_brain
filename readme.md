@@ -6,11 +6,11 @@ Like medicine, data science has a staggering amount of information — from line
 
 Specifically, it is a colleciton of iPython Notebooks covering everything from web scraping in Python to basic mathematics to statistics. This website is static, each ipynb file is "wrapped" in an html template for styling.
 
-**The workflow for blogging is as follows:**
+**The workflow for adding posts is as follows:**
 
 1. Write a post in an iPython Notebook and place it in this repo.
 2. Export the ipynb file to basic html.
-3. Paste the header and footer in template.partial above and below the notebook's contents, respectively.
+3. Paste the header and footer in template.partial above and below the notebook's contents (and change the title), respectively.
 4. Add the file to the appropriate html/ folder.
 5. Edit index.html to add a link to the html file.
 
