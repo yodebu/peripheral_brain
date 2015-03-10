@@ -24,7 +24,7 @@ a:active { color:#B23921; }
 ---------------------------------------------------------*/
 
 .row {
-  background-color: #E74C3C;
+  background-color: #E74A3C;
   border-bottom: 1px solid #C74134;
   padding: .7em;
   color: #fff;
@@ -77,8 +77,8 @@ footer {
 ---------------------------------------------------------*/
 
 .note-box {
-  border:1px solid #BDBDBD;
-  background: #f4f4f4;
+  border:1px solid #D6D6D6;
+  background: #F7F7F5;
   padding: 0em 1em 0em 1em;
   margin: 1em 0em 1em 0em;
 }
@@ -87,7 +87,7 @@ footer {
   -webkit-columns: 3 250px;
   -moz-columns: 3 250px;
   columns: 3 250px;
-  border:1px solid #BDBDBD;
+  border:1px solid #E6E6E6;
   padding: .5em;
   margin-bottom: 1em;
 }
