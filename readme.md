@@ -1,17 +1,18 @@
 # Chris Albon's Peripheral Brain
 
-In medicine, a peripheral brain is a repository of all the knowledge that is important, but not important enough to keep in your brain.
+There is a lesser known concept in the field of medicial education that I have always loved: [peripheral brain](http://en.wiktionary.org/wiki/peripheral_brain). Like many fields, the amount of medical information — from studies to best practices — a medical student or doctor has to know is massive. The most important information becomes part of our long-term memory, but what about the rest? It goes in a peripheral brain: a repository of all the knowledge that is important, but not important enough to keep in your head.
 
+Like medicine, data science has a staggering amount of information — from linear regression to SQL to causal logic. It is frankly why some of us love this field; there is always something new to learn. Taking a lesson from medicine, [ChrisAlbon.com](http://chrisalbon.com) is my peripheral brain on data science and quantitative political science.
 
+Specifically, it is a colleciton of iPython Notebooks covering everything from web scraping in Python to basic mathematics to statistics. This website is static, each ipynb file is "wrapped" in an html template for styling.
 
-In an attempt to combine the wonders of working in iPython with a personal site, and following a conversation with Sebastian Raschka about it, I decided the best strategy to take would be to create a static html "wrapper" that would be able to take iPython notebook html export files and make them pretty.
+**The workflow for blogging is as follows:**
 
-The workflow for blogging is as follows:
-1. Write a post in an iPython notebook in the blog's repo.
-2. Convert the ipython notebook to basic html.
-3. Paste the contents of header.partial and footer.partial above and below the notebook contents.
-4. Add the file to html/
-5. Edit index.html to include a link
+1. Write a post in an iPython Notebook and place it in this repo.
+2. Export the ipynb file to basic html.
+3. Paste the header and footer in template.partial above and below the notebook's contents, respectively.
+4. Add the file to the appropriate html/ folder.
+5. Edit index.html to add a link to the html file.
 
 ## Repo Structure:
 
