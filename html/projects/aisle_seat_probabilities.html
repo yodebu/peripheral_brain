@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Calculating The Probability An Economy Class Seat Is An Aisle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+
+
+
+
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Calculating-The-Probability-An-Economy-Class-Seat-Is-An-Aisle">Calculating The Probability An Economy Class Seat Is An Aisle<a class="anchor-link" href="#Calculating-The-Probability-An-Economy-Class-Seat-Is-An-Aisle">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are two types of people in the world, aisle seaters and window seaters. I am an aisle seater, nothing is worse than limited bathroom access on a long flight. The first thing I do when I get my ticket is check to see if I have a window seat. If not, I immediately head over to the airline counter and try to get one.</p>
+<p>Last flight, on Turkish Airlines, I ran into a curious situation. I recieved my boarding pass with my seat number, 18C, but the ticket did not specify if C was an aisle seat or not. Making matters worse, the airline counter was swamped with a few dozen people. So I asked myself: <strong>given only the seat letter, C, what is the probability that it is an aisle seat?</strong></p>
+<p>Later, on the flight, I decided to find out.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Import required modules</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c"># Set plots to display in the iPython notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Setup-possible-seat-configurations">Setup possible seat configurations<a class="anchor-link" href="#Setup-possible-seat-configurations">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I am a pretty frequently flyer on a variety of airlines and aircraft. There are a variety of seating configurations out there, but typically they follow some basic rules:</p>
+<ul>
+<li>No window cluster of seats has more than three seats.</li>
+<li>On small slights with three seats, the single seat is on the left side.</li>
+<li>No flight has more than nine rows.</li>
+</ul>
+<p>Based on these rules, here are the "typical" seating configurations from aircraft with between two and nine seats per row. A '1' codifies that a seat is an aisle seat, a '0' codifies that it is a non-aisle seat (i.e. window or middle), and 'np.nan' denotes that the aircraft has less than nine seats (this is so all the list lengths are the same).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># An aircraft with two seats per row</span>
+<span class="n">rows2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with three seats per row</span>
+<span class="n">rows3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,]</span>
+
+<span class="c"># An aircraft with four seats per row</span>
+<span class="n">rows4</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with five seats per row</span>
+<span class="n">rows5</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with six seats per row</span>
+<span class="n">rows6</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with seven seats per row</span>
+<span class="n">rows7</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with eight seats per row</span>
+<span class="n">rows8</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+
+<span class="c"># An aircraft with nine seats per row</span>
+<span class="n">rows9</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example, in an aircraft with five seats per row, <code>rows5</code>, the seating arrangement would be:</p>
+<ol>
+<li>window</li>
+<li>aisle</li>
+<li>aisle</li>
+<li>middle</li>
+<li>window</li>
+<li>no seat</li>
+<li>no seat</li>
+<li>no seat</li>
+<li>no seat</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, I'm take advantage of pandas row summation options, but to do this I need to wrangle the data into a pandas dataframe. Essentially I am using the pandas dataframe as a matrix.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a list variable of all possible aircraft configurations</span>
+<span class="n">seating_map</span> <span class="o">=</span> <span class="p">[</span><span class="n">rows2</span><span class="p">,</span> <span class="n">rows3</span><span class="p">,</span> <span class="n">rows4</span><span class="p">,</span> <span class="n">rows5</span><span class="p">,</span> <span class="n">rows6</span><span class="p">,</span> <span class="n">rows7</span><span class="p">,</span> <span class="n">rows8</span><span class="p">,</span> <span class="n">rows9</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a dataframe from the seating_map variable</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">seating_map</span><span class="p">,</span>
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;F&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">,</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;I&#39;</span><span class="p">],</span>
+                  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;rows2&#39;</span><span class="p">,</span> <span class="s">&#39;rows3&#39;</span><span class="p">,</span> <span class="s">&#39;rows4&#39;</span><span class="p">,</span> <span class="s">&#39;rows5&#39;</span><span class="p">,</span> <span class="s">&#39;rows6&#39;</span><span class="p">,</span> <span class="s">&#39;rows7&#39;</span><span class="p">,</span> <span class="s">&#39;rows8&#39;</span><span class="p">,</span> <span class="s">&#39;rows9&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is all the data we need to construct our probabilities. The columns represent individual seat letters (A, B, etc.) while the rows represent the number of seats-per-row in the aircraft.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># View the dataframe</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+      <th>E</th>
+      <th>F</th>
+      <th>G</th>
+      <th>H</th>
+      <th>I</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rows2</th>
+      <td> 1</td>
+      <td> 1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows3</th>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows4</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows5</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows6</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows7</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows8</th>
+      <td> 0</td>
+      <td> 0</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>rows9</th>
+      <td> 0</td>
+      <td> 0</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  1</td>
+      <td>  1</td>
+      <td>  0</td>
+      <td>  0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Calculate-aisle-probability">Calculate aisle probability<a class="anchor-link" href="#Calculate-aisle-probability">&#182;</a></h2><p>Because each aircraft seats-per-row configuration (i.e. row) is binary (1 if aisle, 0 if non-aisle), the probability that a seat is an aisle is simply the mean value of each seat letter (i.e. column).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a list wherein each element is the mean value of a column</span>
+<span class="n">aisle_probability</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;D&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;E&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;F&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;H&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                     <span class="n">df</span><span class="p">[</span><span class="s">&#39;I&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Display the variable</span>
+<span class="n">aisle_probability</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0.25,
+ 0.75,
+ 0.8571428571428571,
+ 0.33333333333333331,
+ 0.59999999999999998,
+ 0.75,
+ 0.33333333333333331,
+ 0.0,
+ 0.0]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So there you have it, the probability that each seat letter is an aisle. However, we can make the presentation a little more intituative.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualize-seat-letter-probabilities">Visualize seat letter probabilities<a class="anchor-link" href="#Visualize-seat-letter-probabilities">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The most obvious visualization to convey the probabilities would be seat letters on the x-axis and probabilities on the y-axis. Panda's plot function makes that easy.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create a list of strings to use as the x-axis labels</span>
+<span class="n">seats</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Seat A&#39;</span><span class="p">,</span> <span class="s">&#39;Seat B&#39;</span><span class="p">,</span> <span class="s">&#39;Seat C&#39;</span><span class="p">,</span> <span class="s">&#39;Seat D&#39;</span><span class="p">,</span>
+         <span class="s">&#39;Seat E&#39;</span><span class="p">,</span> <span class="s">&#39;Seat F&#39;</span><span class="p">,</span> <span class="s">&#39;Seat G&#39;</span><span class="p">,</span> <span class="s">&#39;Seat H&#39;</span><span class="p">,</span> <span class="s">&#39;Seat I&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Plot the probabilities, using &#39;seats&#39; as the index as a bar chart</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">aisle_probability</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">seats</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span>
+                                                    <span class="c"># set y to range between 0 and 1</span>
+                                                    <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                                                    <span class="c"># set the figure size</span>
+                                                    <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+                                                    <span class="c"># set the figure title</span>
+                                                    <span class="n">title</span><span class="o">=</span><span class="s">&#39;Probabilty of being an Aisle Seat in Economy Class&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1078300f0&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So there we have it! If given a boarding pass with seat C you have a 86% probability of being in an aisle seat!</p>
+<p>I hope this was helpful!</p>
+
+</div>
+</div>
+</div>
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
