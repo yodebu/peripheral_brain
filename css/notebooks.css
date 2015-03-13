@@ -35,7 +35,8 @@ div.input{
     display:box;
     box-orient:horizontal;
     box-align:stretch;*/
-    display:inline-block;}
+    display:inline-block;
+    width:100%;}
 
 div.input_area{
     border:1px solid #cfcfcf;
@@ -128,8 +129,6 @@ div.output_stderr{background:#fdd;}
 div.output_latex{text-align:left;}
 
 div.output_latex{text-align:left;}
-
-
 
 /* ---------------------------------------------------------
 Code Cell Highlighting
