@@ -329,7 +329,7 @@ Images
 ---------------------------------------------------------*/
 
 .notebook img{
-    max-width: 100%;
+    max-width: 960px;
     height: auto;
     width: 100%\9; /* ie8 */
     display:block;}
