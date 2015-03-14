@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Find And Replace</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Find-And-Replace">Find And Replace<a class="anchor-link" href="#Find-And-Replace">&#182;</a></h1><p>Original source: <a href="http://christophergandrud.blogspot.com/2013/12/three-quick-and-simple-data-cleaning.html">http://christophergandrud.blogspot.com/2013/12/three-quick-and-simple-data-cleaning.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># load the DataCombine package</span>
+<span class="kn">library</span><span class="p">(</span>DataCombine<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dataframe of simulated values</span>
+data.df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>cities <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;London, UK&quot;</span><span class="p">,</span> <span class="s">&quot;Oxford, UK&quot;</span><span class="p">,</span> <span class="s">&quot;Berlin, DE&quot;</span><span class="p">,</span> <span class="s">&quot;Hamburg, DE&quot;</span><span class="p">,</span> <span class="s">&quot;Oslo, NO&quot;</span><span class="p">),</span> score <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dataframe of two vectors, one with the characters to be replaced and the other with what to replace it with</span>
+replace.values <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>short <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;UK&quot;</span><span class="p">,</span> <span class="s">&quot;DE&quot;</span><span class="p">),</span> long <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;England&quot;</span><span class="p">,</span> <span class="s">&quot;Germany&quot;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># find and replace the character strings</span>
+data.longnames.df <span class="o">&lt;-</span> FindReplace<span class="p">(</span>data <span class="o">=</span> data.df<span class="p">,</span> Var <span class="o">=</span> <span class="s">&quot;cities&quot;</span><span class="p">,</span> replaceData <span class="o">=</span> replace.values<span class="p">,</span> from <span class="o">=</span> <span class="s">&quot;short&quot;</span><span class="p">,</span> to <span class="o">=</span> <span class="s">&quot;long&quot;</span><span class="p">);</span> data.longnames.df
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Only exact matches will be replaced.
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>       cities score
+1  London, UK   8.0
+2  Oxford, UK   0.1
+3  Berlin, DE   3.0
+4 Hamburg, DE   2.0
+5    Oslo, NO   1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

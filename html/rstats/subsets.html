@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Subsetting Data</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Subsetting-Data">Subsetting Data<a class="anchor-link" href="#Subsetting-Data">&#182;</a></h1><p>Original source: <a href="http://rforpublichealth.blogspot.com/2012/10/quick-and-easy-subsetting.html">http://rforpublichealth.blogspot.com/2012/10/quick-and-easy-subsetting.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create some simulated data</span>
+ID <span class="o">&lt;-</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span>
+Age <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">26</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">88</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">66</span> <span class="p">,</span><span class="m">45</span><span class="p">,</span> <span class="m">12</span><span class="p">)</span>
+Sex <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span> <span class="p">,</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+Weight <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">132</span><span class="p">,</span> <span class="m">122</span><span class="p">,</span> <span class="m">184</span><span class="p">,</span> <span class="m">145</span><span class="p">,</span> <span class="m">118</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">128</span><span class="p">,</span> <span class="m">154</span><span class="p">,</span> <span class="m">166</span><span class="p">,</span> <span class="m">164</span><span class="p">)</span>
+Height <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">60</span><span class="p">,</span> <span class="m">63</span><span class="p">,</span> <span class="m">57</span><span class="p">,</span> <span class="m">59</span><span class="p">,</span> <span class="m">64</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">67</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">60</span><span class="p">)</span>
+Married <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dataframe of the simulated data</span>
+mydata <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>ID<span class="p">,</span> Age<span class="p">,</span> Sex<span class="p">,</span> Weight<span class="p">,</span> Height<span class="p">,</span> Married<span class="p">)</span>
+mydata
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>   ID Age Sex Weight Height Married
+1   1  26   1    132     60       0
+2   2  65   0    122     63       0
+3   3  15   1    184     57       0
+4   4   7   1    145     59       0
+5   5  88   0    118     64       0
+6   6  43   1     NA     NA       0
+7   7  28   1    128     67       1
+8   8  66   1    154     65       1
+9   9  45   0    166     NA       0
+10 10  12   1    164     60       1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a new variable called sub.data that is the subset of mydata, containing all rows where Age is less than 50 and sex is 0 and the columns ID, Age, and Weight</span>
+sub.data<span class="o">&lt;-</span><span class="kp">subset</span><span class="p">(</span>mydata<span class="p">,</span> Age<span class="o">&gt;</span><span class="m">50</span> <span class="o">&amp;</span> Sex<span class="o">==</span><span class="m">0</span><span class="p">,</span> select<span class="o">=</span><span class="kt">c</span><span class="p">(</span>ID<span class="p">,</span> Age<span class="p">,</span> Weight<span class="p">))</span>
+sub.data
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  ID Age Weight
+2  2  65    122
+5  5  88    118</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

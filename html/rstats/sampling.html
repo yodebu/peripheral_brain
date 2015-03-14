@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sampling in R</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../../css/styles.css" rel="stylesheet" media="all">
+    <link href="../../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sampling-in-R">Sampling in R<a class="anchor-link" href="#Sampling-in-R">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Create a population of data</span>
+population <span class="o">&lt;-</span> rnorm<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Sample 100 observation from the population of data, without replacement</span>
+sample <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>population<span class="p">,</span> <span class="m">100</span><span class="p">,</span> replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># View the sample</span>
+<span class="kp">sample</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  [1] -0.129219040  1.518986856 -1.121348640 -1.150077471 -0.489263654
+  [6] -0.841177103 -0.774176234  0.070402146 -0.109056603 -1.648204067
+ [11]  0.998132544 -0.249399062  0.792774951  0.497899767  0.779363069
+ [16]  1.343803830 -0.260186522  1.121706668 -1.458195137  1.603245141
+ [21]  0.424563292 -2.208635666  1.433034664 -1.087884969  0.505870371
+ [26]  1.139785998 -0.825174901  0.604944521  0.482636039  0.329966134
+ [31] -0.356832455  0.202305723 -1.269608482 -1.876274254 -1.568588222
+ [36]  1.027197383  0.569795152  0.394942749 -0.059843038  1.051632852
+ [41] -0.761036116 -1.177838442 -0.252533986  0.447810962 -1.377854032
+ [46] -0.563699314 -0.376471704  0.097157070  0.821499638 -0.274195994
+ [51]  0.640105046 -1.177857754  1.021021671  0.723894247 -0.557805790
+ [56]  2.313566185  0.070609946 -0.941583920 -0.851167218 -1.113739717
+ [61]  0.738163098 -0.274254246  1.052859723 -0.691817242 -0.003154583
+ [66]  0.039907038  0.301564691 -1.773501450 -0.207059604  0.059896893
+ [71] -0.478809890  0.305387446  0.154420143 -1.398018312 -0.748575560
+ [76]  0.772815759  0.398396468  0.478987088 -0.677324774 -0.422754198
+ [81]  0.064750414 -0.813921740  1.220945535  0.054736122 -1.230677889
+ [86] -1.105874754 -0.705068905 -0.496520306  1.332298141  1.246263878
+ [91] -0.020308835 -1.801665946 -0.607985694 -1.138447356 -0.375253558
+ [96]  0.787363533 -1.925421450 -1.608369372  0.187454701  1.008443172</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+
