@@ -10,5 +10,5 @@ source activate py3k
 
 cd "$(dirname "$0")"
 
-ipython nbconvert --to html --template basic aisle_seat_probabilities.ipynb
+ipython nbconvert --to html --template basic i_am_a_data_scientist.ipynb
 
