@@ -10,5 +10,5 @@ source activate py3k
 
 cd "$(dirname "$0")"
 
-ipython nbconvert --to html --template basic i_am_a_data_scientist.ipynb
+ipython nbconvert --to html --template basic geocoding_and_reverse_geocoding.ipynb
 
