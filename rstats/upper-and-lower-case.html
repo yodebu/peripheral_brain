@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Changing Uppercase And Lowercase</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Changing-Uppercase-And-Lowercase">Changing Uppercase And Lowercase<a class="anchor-link" href="#Changing-Uppercase-And-Lowercase">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a character vector</span>
+text <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;DSFGSsdffdsDSF&quot;</span><span class="p">,</span> <span class="s">&quot;DdsFDSFsdfSsdf&quot;</span><span class="p">,</span> <span class="s">&quot;DDDDDDDD&quot;</span><span class="p">,</span> <span class="s">&quot;kkkkkkkk&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># convert to upper case</span>
+<span class="kp">toupper</span><span class="p">(</span>text<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1] &quot;DSFGSSDFFDSDSF&quot; &quot;DDSFDSFSDFSSDF&quot; &quot;DDDDDDDD&quot;       &quot;KKKKKKKK&quot;      </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># convert to all lower case</span>
+<span class="kp">tolower</span><span class="p">(</span>text<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1] &quot;dsfgssdffdsdsf&quot; &quot;ddsfdsfsdfssdf&quot; &quot;dddddddd&quot;       &quot;kkkkkkkk&quot;      </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

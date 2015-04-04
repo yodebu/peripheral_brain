@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Character Dates</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Character-Dates">Character Dates<a class="anchor-link" href="#Character-Dates">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dates2 variable with simulated data</span>
+dates2 <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>
+  <span class="kp">cbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">),</span>
+  <span class="kt">c</span><span class="p">(</span><span class="s">&quot;8/31/70&quot;</span><span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">,</span> <span class="s">&quot;10/12/60&quot;</span><span class="p">,</span> <span class="s">&quot;1/1/66&quot;</span><span class="p">,</span> <span class="s">&quot;12/31/80&quot;</span><span class="p">),</span>
+  <span class="kt">c</span><span class="p">(</span><span class="s">&quot;8/31/56&quot;</span><span class="p">,</span> <span class="s">&quot;12-31-1977&quot;</span><span class="p">,</span> <span class="s">&quot;12Aug55&quot;</span><span class="p">,</span> <span class="s">&quot;July 31 1965&quot;</span> <span class="p">,</span><span class="s">&quot;30jan1952&quot;</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># add column names</span>
+<span class="kp">colnames</span><span class="p">(</span>dates2<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span> <span class="s">&quot;date_factor&quot;</span><span class="p">,</span> <span class="s">&quot;date_horrible&quot;</span><span class="p">)</span>
+
+<span class="c1"># view the dataframe</span>
+dates2
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  ID date_factor date_horrible
+1  1     8/31/70       8/31/56
+2  2          NA    12-31-1977
+3  3    10/12/60       12Aug55
+4  4      1/1/66  July 31 1965
+5  5    12/31/80     30jan1952</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># load the chron packaage</span>
+<span class="kn">library</span><span class="p">(</span>chron<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># convert date_factor into characters and the translate it into date format using format = </span>
+dates2<span class="o">$</span>date.fmt <span class="o">&lt;-</span> chron<span class="p">(</span><span class="kp">as.character</span><span class="p">(</span>dates2<span class="o">$</span>date_factor<span class="p">),</span> format <span class="o">=</span> <span class="s">&quot;m/d/y&quot;</span><span class="p">)</span>
+
+<span class="c1"># same as above but change the output format</span>
+dates2<span class="o">$</span>date.fmt <span class="o">&lt;-</span> chron<span class="p">(</span><span class="kp">as.character</span><span class="p">(</span>dates2<span class="o">$</span>date_factor<span class="p">),</span> format <span class="o">=</span> <span class="s">&quot;m/d/y&quot;</span><span class="p">,</span> out.format <span class="o">=</span> <span class="s">&quot;month day year&quot;</span><span class="p">)</span>
+
+<span class="c1"># create a new variable that is their age in years (thus divide by 360), the floor() function converts the number into integers</span>
+dates2<span class="o">$</span>age <span class="o">&lt;-</span> <span class="kp">as.numeric</span><span class="p">(</span><span class="kp">floor</span><span class="p">(</span><span class="kp">difftime</span><span class="p">(</span>chron<span class="p">(</span><span class="s">&quot;03/01/2013&quot;</span><span class="p">),</span> dates2<span class="o">$</span>date.fmt<span class="p">,</span> unit <span class="o">=</span> <span class="s">&quot;days&quot;</span><span class="p">)</span><span class="o">/</span><span class="m">360</span><span class="p">))</span>
+
+<span class="c1"># Add a day to each element of a vector of ages</span>
+dates2<span class="o">$</span>date.fmt <span class="o">+</span> <span class="m">1</span>
+
+<span class="c1"># Ask which dates in a vector came before a set date</span>
+dates2<span class="o">$</span>date.fmt <span class="o">&lt;</span> chron<span class="p">(</span><span class="s">&quot;04/02/62&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning message:
+In unpaste(dates., sep = fmt$sep, fnames = fmt$periods, nfields = 3): wrong number of fields in entry(ies) 2Warning message:
+In unpaste(dates., sep = fmt$sep, fnames = fmt$periods, nfields = 3): wrong number of fields in entry(ies) 2</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1] September 01 1970 &lt;NA&gt;              October 13 1960   January 02 1966
+[5] January 01 1981  </pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1] FALSE    NA  TRUE FALSE FALSE</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># load the date package</span>
+<span class="kn">library</span><span class="p">(</span><span class="kp">date</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>dates2<span class="o">$</span>date_autofmt <span class="o">&lt;-</span> as.date<span class="p">(</span><span class="kp">as.character</span><span class="p">(</span>dates2<span class="o">$</span>date_horrible<span class="p">))</span>
+dates2<span class="p">[,</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">6</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  ID date_horrible date_autofmt
+1  1       8/31/56        -1218
+2  2    12-31-1977         6574
+3  3       12Aug55        -1603
+4  4  July 31 1965         2038
+5  5     30jan1952        -2893</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># take the horribly formatted dates, convert them into characters, auto convert the messy dates into clean dates (using as.date) then convert it into R&#39;s date class (as.Date). Notice the capitalization of as.date and as.Date.</span>
+dates2<span class="o">$</span>date_amazing <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>as.date<span class="p">(</span><span class="kp">as.character</span><span class="p">(</span>dates2<span class="o">$</span>date_horrible<span class="p">)))</span>
+
+dates2<span class="p">[,</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  ID date_horrible date_amazing
+1  1       8/31/56   1956-08-31
+2  2    12-31-1977   1977-12-31
+3  3       12Aug55   1955-08-12
+4  4  July 31 1965   1965-07-31
+5  5     30jan1952   1952-01-30</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

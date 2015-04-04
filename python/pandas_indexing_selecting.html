@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Indexing and Selecting Data With Pandas</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="http://chrisalbon.com/html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Indexing-and-Selecting-Data-With-Pandas">Indexing and Selecting Data With Pandas<a class="anchor-link" href="#Indexing-and-Selecting-Data-With-Pandas">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+<p>Short verison:</p>
+<ul>
+<li>.iloc[<strong>row</strong>,<strong>column</strong>]</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># import the pandas module</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create an example dataframe about a fictional army</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regiment&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Nighthawks&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">,</span> <span class="s">&#39;Scouts&#39;</span><span class="p">],</span>
+            <span class="s">&#39;company&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span><span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;1st&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">,</span> <span class="s">&#39;2nd&#39;</span><span class="p">],</span>
+            <span class="s">&#39;deaths&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">523</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">616</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">234</span><span class="p">,</span> <span class="mi">523</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">35</span><span class="p">],</span>
+            <span class="s">&#39;battles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+            <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1045</span><span class="p">,</span> <span class="mi">957</span><span class="p">,</span> <span class="mi">1099</span><span class="p">,</span> <span class="mi">1400</span><span class="p">,</span> <span class="mi">1592</span><span class="p">,</span> <span class="mi">1006</span><span class="p">,</span> <span class="mi">987</span><span class="p">,</span> <span class="mi">849</span><span class="p">,</span> <span class="mi">973</span><span class="p">,</span> <span class="mi">1005</span><span class="p">,</span> <span class="mi">1099</span><span class="p">,</span> <span class="mi">1523</span><span class="p">],</span>
+            <span class="s">&#39;veterans&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">949</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">435</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">345</span><span class="p">],</span>
+            <span class="s">&#39;readiness&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="s">&#39;armored&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="s">&#39;deserters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="s">&#39;origin&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;Arizona&#39;</span><span class="p">,</span> <span class="s">&#39;California&#39;</span><span class="p">,</span> <span class="s">&#39;Texas&#39;</span><span class="p">,</span> <span class="s">&#39;Florida&#39;</span><span class="p">,</span> <span class="s">&#39;Maine&#39;</span><span class="p">,</span> <span class="s">&#39;Iowa&#39;</span><span class="p">,</span> <span class="s">&#39;Alaska&#39;</span><span class="p">,</span> <span class="s">&#39;Washington&#39;</span><span class="p">,</span> <span class="s">&#39;Oregon&#39;</span><span class="p">,</span> <span class="s">&#39;Wyoming&#39;</span><span class="p">,</span> <span class="s">&#39;Louisana&#39;</span><span class="p">,</span> <span class="s">&#39;Georgia&#39;</span><span class="p">]}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">,</span> <span class="s">&#39;company&#39;</span><span class="p">,</span> <span class="s">&#39;deaths&#39;</span><span class="p">,</span> <span class="s">&#39;battles&#39;</span><span class="p">,</span> <span class="s">&#39;size&#39;</span><span class="p">,</span> <span class="s">&#39;veterans&#39;</span><span class="p">,</span> <span class="s">&#39;readiness&#39;</span><span class="p">,</span> <span class="s">&#39;armored&#39;</span><span class="p">,</span> <span class="s">&#39;deserters&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">])</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">&#39;origin&#39;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td>  5</td>
+      <td> 1045</td>
+      <td>  1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td>  52</td>
+      <td> 42</td>
+      <td>  957</td>
+      <td>  5</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>  25</td>
+      <td>  2</td>
+      <td> 1099</td>
+      <td> 62</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td> 616</td>
+      <td>  2</td>
+      <td> 1400</td>
+      <td> 26</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td>  43</td>
+      <td>  4</td>
+      <td> 1592</td>
+      <td> 73</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-a-column">Select a column<a class="anchor-link" href="#Select-a-column">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>origin
+Arizona       1045
+California     957
+Texas         1099
+Florida       1400
+Maine         1592
+Iowa          1006
+Alaska         987
+Washington     849
+Oregon         973
+Wyoming       1005
+Louisana      1099
+Georgia       1523
+Name: size, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-multiple-columns">Select multiple columns<a class="anchor-link" href="#Select-multiple-columns">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[[</span><span class="s">&#39;size&#39;</span><span class="p">,</span> <span class="s">&#39;veterans&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>size</th>
+      <th>veterans</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> 1045</td>
+      <td>   1</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td>  957</td>
+      <td>   5</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> 1099</td>
+      <td>  62</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> 1400</td>
+      <td>  26</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td> 1592</td>
+      <td>  73</td>
+    </tr>
+    <tr>
+      <th>Iowa</th>
+      <td> 1006</td>
+      <td>  37</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>  987</td>
+      <td> 949</td>
+    </tr>
+    <tr>
+      <th>Washington</th>
+      <td>  849</td>
+      <td>  48</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>  973</td>
+      <td>  48</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td> 1005</td>
+      <td> 435</td>
+    </tr>
+    <tr>
+      <th>Louisana</th>
+      <td> 1099</td>
+      <td>  63</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td> 1523</td>
+      <td> 345</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-all-rows-by-index-label">Select all rows by index label<a class="anchor-link" href="#Select-all-rows-by-index-label">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select all rows with the index label &quot;Arizona&quot;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="s">&#39;Arizona&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td> 5</td>
+      <td> 1045</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-rows-by-row-number">Select rows by row number<a class="anchor-link" href="#Select-rows-by-row-number">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select every row up to 3</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td>  5</td>
+      <td> 1045</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td>  52</td>
+      <td> 42</td>
+      <td>  957</td>
+      <td> 5</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the second and third row</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 52</td>
+      <td> 42</td>
+      <td> 957</td>
+      <td> 5</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select every row after the third row</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>  25</td>
+      <td> 2</td>
+      <td> 1099</td>
+      <td>  62</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td> 616</td>
+      <td> 2</td>
+      <td> 1400</td>
+      <td>  26</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td>  43</td>
+      <td> 4</td>
+      <td> 1592</td>
+      <td>  73</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+    <tr>
+      <th>Iowa</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td> 234</td>
+      <td> 7</td>
+      <td> 1006</td>
+      <td>  37</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td> 523</td>
+      <td> 8</td>
+      <td>  987</td>
+      <td> 949</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Washington</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td>  62</td>
+      <td> 3</td>
+      <td>  849</td>
+      <td>  48</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  62</td>
+      <td> 4</td>
+      <td>  973</td>
+      <td>  48</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  73</td>
+      <td> 7</td>
+      <td> 1005</td>
+      <td> 435</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+    <tr>
+      <th>Louisana</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  37</td>
+      <td> 8</td>
+      <td> 1099</td>
+      <td>  63</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  35</td>
+      <td> 9</td>
+      <td> 1523</td>
+      <td> 345</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-columns-by-column-position">Select columns by column position<a class="anchor-link" href="#Select-columns-by-column-position">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the first 2 columns</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>Iowa</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+    </tr>
+    <tr>
+      <th>Washington</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+    </tr>
+    <tr>
+      <th>Louisana</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Select-by-conditionals-(boolean)">Select by conditionals (boolean)<a class="anchor-link" href="#Select-by-conditionals-(boolean)">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select rows where df.deaths is greater than 50</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;deaths&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td>  5</td>
+      <td> 1045</td>
+      <td>   1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td>  52</td>
+      <td> 42</td>
+      <td>  957</td>
+      <td>   5</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td> 616</td>
+      <td>  2</td>
+      <td> 1400</td>
+      <td>  26</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Iowa</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td> 234</td>
+      <td>  7</td>
+      <td> 1006</td>
+      <td>  37</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td> 523</td>
+      <td>  8</td>
+      <td>  987</td>
+      <td> 949</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Washington</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td>  62</td>
+      <td>  3</td>
+      <td>  849</td>
+      <td>  48</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  62</td>
+      <td>  4</td>
+      <td>  973</td>
+      <td>  48</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  73</td>
+      <td>  7</td>
+      <td> 1005</td>
+      <td> 435</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select rows where df.deaths is greater than 500 or less than 50</span>
+<span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;deaths&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;deaths&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td> 5</td>
+      <td> 1045</td>
+      <td>   1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>  25</td>
+      <td> 2</td>
+      <td> 1099</td>
+      <td>  62</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td> 616</td>
+      <td> 2</td>
+      <td> 1400</td>
+      <td>  26</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td>   Dragoons</td>
+      <td> 1st</td>
+      <td>  43</td>
+      <td> 4</td>
+      <td> 1592</td>
+      <td>  73</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>   Dragoons</td>
+      <td> 2nd</td>
+      <td> 523</td>
+      <td> 8</td>
+      <td>  987</td>
+      <td> 949</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Louisana</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  37</td>
+      <td> 8</td>
+      <td> 1099</td>
+      <td>  63</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  35</td>
+      <td> 9</td>
+      <td> 1523</td>
+      <td> 345</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select all the regiments not named &quot;Dragoons&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;regiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;Dragoons&#39;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td>  5</td>
+      <td> 1045</td>
+      <td>   1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td>  52</td>
+      <td> 42</td>
+      <td>  957</td>
+      <td>   5</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td> 24</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>  25</td>
+      <td>  2</td>
+      <td> 1099</td>
+      <td>  62</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td> 616</td>
+      <td>  2</td>
+      <td> 1400</td>
+      <td>  26</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  62</td>
+      <td>  4</td>
+      <td>  973</td>
+      <td>  48</td>
+      <td> 2</td>
+      <td> 0</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td>     Scouts</td>
+      <td> 1st</td>
+      <td>  73</td>
+      <td>  7</td>
+      <td> 1005</td>
+      <td> 435</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td>  3</td>
+    </tr>
+    <tr>
+      <th>Louisana</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  37</td>
+      <td>  8</td>
+      <td> 1099</td>
+      <td>  63</td>
+      <td> 2</td>
+      <td> 1</td>
+      <td>  2</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td>     Scouts</td>
+      <td> 2nd</td>
+      <td>  35</td>
+      <td>  9</td>
+      <td> 1523</td>
+      <td> 345</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td>  3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".ix">.ix<a class="anchor-link" href="#.ix">&#182;</a></h2><p>.ix is the combination of both .loc and .iloc. Integers are first considered labels, but if not found, falls back on positional indexing</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the rows called Texas and Arizona</span>
+<span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[[</span><span class="s">&#39;Arizona&#39;</span><span class="p">,</span> <span class="s">&#39;Texas&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>regiment</th>
+      <th>company</th>
+      <th>deaths</th>
+      <th>battles</th>
+      <th>size</th>
+      <th>veterans</th>
+      <th>readiness</th>
+      <th>armored</th>
+      <th>deserters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Arizona</th>
+      <td> Nighthawks</td>
+      <td> 1st</td>
+      <td> 523</td>
+      <td> 5</td>
+      <td> 1045</td>
+      <td>  1</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  4</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td> Nighthawks</td>
+      <td> 2nd</td>
+      <td>  25</td>
+      <td> 2</td>
+      <td> 1099</td>
+      <td> 62</td>
+      <td> 3</td>
+      <td> 1</td>
+      <td> 31</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the third cell in the row named Arizona</span>
+<span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;Arizona&#39;</span><span class="p">,</span> <span class="s">&#39;deaths&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>523</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the third cell in the row named Arizona</span>
+<span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;Arizona&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>523</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Select the third cell down in the column named deaths</span>
+<span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;deaths&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>25</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

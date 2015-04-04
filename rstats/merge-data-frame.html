@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Merge Data Frames</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Merge-Data-Frames">Merge Data Frames<a class="anchor-link" href="#Merge-Data-Frames">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Create two variables of 50 observations, note that we only use 10 month names, because to be combined into a dataset all variables must have the same number of lengths OR be a multiple of the longest length.</span>
+percent.sms.85 <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">50</span><span class="p">)</span>
+state <span class="o">&lt;-</span> state.name
+month.85 <span class="o">&lt;-</span> <span class="kp">month.name</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Create a dataframe of those two variables</span>
+usa1985 <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>state<span class="p">,</span> percent.sms.85<span class="p">,</span> month.85<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>percent.sms.95 <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">50</span><span class="p">)</span>
+state <span class="o">&lt;-</span> state.name
+month.95 <span class="o">&lt;-</span> <span class="kp">month.name</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Create a dataframe of those two variables</span>
+usa1995 <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>state<span class="p">,</span> percent.sms.95<span class="p">,</span> month.95<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Merge the 1995 and 1985 data frames by the variable &quot;state&quot;</span>
+usa <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>usa1985<span class="p">,</span> usa1995<span class="p">,</span> by <span class="o">=</span> <span class="s">&quot;state&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If some observations don't have a match, we can force the merge with the all = TRUE argument</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Drop the last 10 observations in usa1985</span>
+usa1985a <span class="o">&lt;-</span> usa1985<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">40</span><span class="p">,]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Merge 1985 and 1995 data frames</span>
+usa.a <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>usa1985a<span class="p">,</span> usa1995<span class="p">,</span> by <span class="o">=</span> <span class="s">&quot;state&quot;</span><span class="p">,</span> all <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>usa.a
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>            state percent.sms.85  month.85 percent.sms.95  month.95
+1         Alabama    0.911839169   January     0.78692563   January
+2          Alaska    0.962579448  February     0.70895643  February
+3         Arizona    0.026227813     March     0.72485492     March
+4        Arkansas    0.670236194     April     0.01125962     April
+5      California    0.020827639       May     0.33374079       May
+6        Colorado    0.863195854      June     0.68766522      June
+7     Connecticut    0.219795803      July     0.10379131      July
+8        Delaware    0.184099688    August     0.49875863    August
+9         Florida    0.454246269 September     0.73110314 September
+10        Georgia    0.765207091   October     0.61619085   October
+11         Hawaii    0.877940437   January     0.34551863   January
+12          Idaho    0.443048854  February     0.74052659  February
+13       Illinois    0.772117489     March     0.19904699     March
+14        Indiana    0.004526970     April     0.85266998     April
+15           Iowa    0.537924783       May     0.98608913       May
+16         Kansas    0.517531423      June     0.35238215      June
+17       Kentucky    0.048399794      July     0.96977605      July
+18      Louisiana    0.127585422    August     0.87639278    August
+19          Maine    0.693070376 September     0.93714056 September
+20       Maryland    0.446622736   October     0.47403974   October
+21  Massachusetts    0.996398812   January     0.11717452   January
+22       Michigan    0.598997187  February     0.85384948  February
+23      Minnesota    0.453290568     March     0.46549906     March
+24    Mississippi    0.501605880     April     0.54499399     April
+25       Missouri    0.344708045       May     0.99621523       May
+26        Montana    0.199458824      June     0.26662323      June
+27       Nebraska    0.661483499      July     0.30106483      July
+28         Nevada    0.403032863    August     0.99457227    August
+29  New Hampshire    0.006592093 September     0.29969927 September
+30     New Jersey    0.080242319   October     0.68534574   October
+31     New Mexico    0.157568631   January     0.35347240   January
+32       New York    0.425534808  February     0.30905687  February
+33 North Carolina    0.780164812     March     0.29777418     March
+34   North Dakota    0.338809068     April     0.31317768     April
+35           Ohio    0.969465860       May     0.70756109       May
+36       Oklahoma    0.869238595      June     0.63593124      June
+37         Oregon    0.069332679      July     0.99365654      July
+38   Pennsylvania    0.067476764    August     0.38521444    August
+39   Rhode Island    0.264621076 September     0.27603005 September
+40 South Carolina    0.843611176   October     0.22785430   October
+41   South Dakota             NA      &lt;NA&gt;     0.06466419   January
+42      Tennessee             NA      &lt;NA&gt;     0.56589275  February
+43          Texas             NA      &lt;NA&gt;     0.75391787     March
+44           Utah             NA      &lt;NA&gt;     0.82641243     April
+45        Vermont             NA      &lt;NA&gt;     0.99062278       May
+46       Virginia             NA      &lt;NA&gt;     0.38918234      June
+47     Washington             NA      &lt;NA&gt;     0.82666687      July
+48  West Virginia             NA      &lt;NA&gt;     0.69003692    August
+49      Wisconsin             NA      &lt;NA&gt;     0.03635303 September
+50        Wyoming             NA      &lt;NA&gt;     0.90969228   October</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

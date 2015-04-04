@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>List Operations</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="http://chrisalbon.com/html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="List-Operations">List Operations<a class="anchor-link" href="#List-Operations">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-list-of-simulated-data">Create a list of simulated data<a class="anchor-link" href="#Create-a-list-of-simulated-data">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Spain&quot;</span><span class="p">,</span> <span class="s">&quot;Japan&quot;</span><span class="p">,</span> <span class="s">&quot;Kenya&quot;</span><span class="p">,</span> <span class="s">&quot;Tanzania&quot;</span><span class="p">,</span> <span class="s">&quot;Ghana&quot;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Add-an-item-to-the-end-of-the-list">Add an item to the end of the list<a class="anchor-link" href="#Add-an-item-to-the-end-of-the-list">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note: If the appending item contains multiple items, it is nested.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;Nigeria&quot;</span><span class="p">);</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Spain&apos;, &apos;Japan&apos;, &apos;Kenya&apos;, &apos;Tanzania&apos;, &apos;Ghana&apos;, &apos;Nigeria&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Add-all-items-of-a-list-to-a-list">Add all items of a list to a list<a class="anchor-link" href="#Add-all-items-of-a-list-to-a-list">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&quot;France&quot;</span><span class="p">,</span> <span class="s">&quot;Switzerland&quot;</span><span class="p">,</span> <span class="s">&quot;China&quot;</span><span class="p">]);</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Spain&apos;,
+ &apos;Japan&apos;,
+ &apos;Kenya&apos;,
+ &apos;Tanzania&apos;,
+ &apos;Ghana&apos;,
+ &apos;Nigeria&apos;,
+ &apos;France&apos;,
+ &apos;Switzerland&apos;,
+ &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Insert-Italy-into-the-second-position-of-the-list-countries">Insert Italy into the second position of the list countries<a class="anchor-link" href="#Insert-Italy-into-the-second-position-of-the-list-countries">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Italy&quot;</span><span class="p">);</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Spain&apos;,
+ &apos;Italy&apos;,
+ &apos;Japan&apos;,
+ &apos;Kenya&apos;,
+ &apos;Tanzania&apos;,
+ &apos;Ghana&apos;,
+ &apos;Nigeria&apos;,
+ &apos;France&apos;,
+ &apos;Switzerland&apos;,
+ &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-Spain-from-the-list-countries">Remove Spain from the list countries<a class="anchor-link" href="#Remove-Spain-from-the-list-countries">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&quot;Spain&quot;</span><span class="p">);</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Italy&apos;,
+ &apos;Japan&apos;,
+ &apos;Kenya&apos;,
+ &apos;Tanzania&apos;,
+ &apos;Ghana&apos;,
+ &apos;Nigeria&apos;,
+ &apos;France&apos;,
+ &apos;Switzerland&apos;,
+ &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Delete-the-second-item-from-the-list-countries">Delete the second item from the list countries<a class="anchor-link" href="#Delete-the-second-item-from-the-list-countries">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">del</span> <span class="n">countries</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Italy&apos;,
+ &apos;Kenya&apos;,
+ &apos;Tanzania&apos;,
+ &apos;Ghana&apos;,
+ &apos;Nigeria&apos;,
+ &apos;France&apos;,
+ &apos;Switzerland&apos;,
+ &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-the-third-item-from-the-list,-and-returns-it-(i.e.-&quot;pops-it-out&quot;)">Remove the third item from the list, and returns it (i.e. "pops it out")<a class="anchor-link" href="#Remove-the-third-item-from-the-list,-and-returns-it-(i.e.-&quot;pops-it-out&quot;)">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Italy&apos;,
+ &apos;Kenya&apos;,
+ &apos;Tanzania&apos;,
+ &apos;Ghana&apos;,
+ &apos;Nigeria&apos;,
+ &apos;France&apos;,
+ &apos;Switzerland&apos;,
+ &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&apos;Ghana&apos;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Italy&apos;, &apos;Kenya&apos;, &apos;Tanzania&apos;, &apos;Nigeria&apos;, &apos;France&apos;, &apos;Switzerland&apos;, &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Return-the-index-of-the-first-item-that-matches-&quot;Kenya&quot;">Return the index of the first item that matches "Kenya"<a class="anchor-link" href="#Return-the-index-of-the-first-item-that-matches-&quot;Kenya&quot;">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">kenya</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s">&quot;Kenya&quot;</span><span class="p">);</span> <span class="n">kenya</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Count-all-number-of-times-&quot;Kenya&quot;-appears-in-the-list-countries">Count all number of times "Kenya" appears in the list countries<a class="anchor-link" href="#Count-all-number-of-times-&quot;Kenya&quot;-appears-in-the-list-countries">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">kenya_count</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&quot;Kenya&quot;</span><span class="p">);</span> <span class="n">kenya_count</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sort-the-list-in-alphabetical-order">Sort the list in alphabetical order<a class="anchor-link" href="#Sort-the-list-in-alphabetical-order">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">sort</span><span class="p">();</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;China&apos;, &apos;France&apos;, &apos;Italy&apos;, &apos;Kenya&apos;, &apos;Nigeria&apos;, &apos;Switzerland&apos;, &apos;Tanzania&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reverse-the-elements-of-the-list">Reverse the elements of the list<a class="anchor-link" href="#Reverse-the-elements-of-the-list">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">reverse</span><span class="p">();</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Tanzania&apos;, &apos;Switzerland&apos;, &apos;Nigeria&apos;, &apos;Kenya&apos;, &apos;Italy&apos;, &apos;France&apos;, &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Copy-the-list,-same-as-countries[:]">Copy the list, same as countries[:]<a class="anchor-link" href="#Copy-the-list,-same-as-countries[:]">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries_copy</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">countries_copy</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Tanzania&apos;, &apos;Switzerland&apos;, &apos;Nigeria&apos;, &apos;Kenya&apos;, &apos;Italy&apos;, &apos;France&apos;, &apos;China&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-all-the-items-from-the-list-countries">Remove all the items from the list countries<a class="anchor-link" href="#Remove-all-the-items-from-the-list-countries">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">countries</span><span class="o">.</span><span class="n">clear</span><span class="p">();</span> <span class="n">countries</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+
+

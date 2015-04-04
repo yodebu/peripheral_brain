@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Importing a JSON file into R</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Importing-a-JSON-file-into-R">Importing a JSON file into R<a class="anchor-link" href="#Importing-a-JSON-file-into-R">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Source: <a href="http://stackoverflow.com/questions/13004813/downloading-json-data-into-r?lq=1">http://stackoverflow.com/questions/13004813/downloading-json-data-into-r?lq=1</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Load libraries</span>
+<span class="kn">library</span><span class="p">(</span>RJSONIO<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>RCurl<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># grab the data</span>
+raw_data <span class="o">&lt;-</span> getURL<span class="p">(</span><span class="s">&quot;http://swapi.co/api/people/1/?format=json&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Then covert from JSON into a list in R</span>
+data <span class="o">&lt;-</span> fromJSON<span class="p">(</span>raw_data<span class="p">)</span>
+<span class="kp">length</span><span class="p">(</span>data<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># We can coerce this to a data.frame</span>
+final_data <span class="o">&lt;-</span> <span class="kp">do.call</span><span class="p">(</span><span class="kp">rbind</span><span class="p">,</span> data<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Then write it to a flat csv file</span>
+<span class="c1"># write.csv(final_data, &quot;final_data.csv&quot;)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1] 16</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>final_data
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>           [,1]
+name       &quot;Luke Skywalker&quot;
+height     &quot;172&quot;
+mass       &quot;77&quot;
+hair_color &quot;blond&quot;
+skin_color &quot;fair&quot;
+eye_color  &quot;blue&quot;
+birth_year &quot;19BBY&quot;
+gender     &quot;male&quot;
+homeworld  &quot;http://swapi.co/api/planets/1/&quot;
+films      &quot;http://swapi.co/api/films/1/&quot;
+species    &quot;http://swapi.co/api/species/1/&quot;
+vehicles   &quot;http://swapi.co/api/vehicles/14/&quot;
+starships  &quot;http://swapi.co/api/starships/12/&quot;
+created    &quot;2014-12-09T13:50:51.644000Z&quot;
+edited     &quot;2014-12-20T21:17:56.891000Z&quot;
+url        &quot;http://swapi.co/api/people/1/&quot;
+           [,2]
+name       &quot;Luke Skywalker&quot;
+height     &quot;172&quot;
+mass       &quot;77&quot;
+hair_color &quot;blond&quot;
+skin_color &quot;fair&quot;
+eye_color  &quot;blue&quot;
+birth_year &quot;19BBY&quot;
+gender     &quot;male&quot;
+homeworld  &quot;http://swapi.co/api/planets/1/&quot;
+films      &quot;http://swapi.co/api/films/2/&quot;
+species    &quot;http://swapi.co/api/species/1/&quot;
+vehicles   &quot;http://swapi.co/api/vehicles/30/&quot;
+starships  &quot;http://swapi.co/api/starships/22/&quot;
+created    &quot;2014-12-09T13:50:51.644000Z&quot;
+edited     &quot;2014-12-20T21:17:56.891000Z&quot;
+url        &quot;http://swapi.co/api/people/1/&quot;
+           [,3]
+name       &quot;Luke Skywalker&quot;
+height     &quot;172&quot;
+mass       &quot;77&quot;
+hair_color &quot;blond&quot;
+skin_color &quot;fair&quot;
+eye_color  &quot;blue&quot;
+birth_year &quot;19BBY&quot;
+gender     &quot;male&quot;
+homeworld  &quot;http://swapi.co/api/planets/1/&quot;
+films      &quot;http://swapi.co/api/films/3/&quot;
+species    &quot;http://swapi.co/api/species/1/&quot;
+vehicles   &quot;http://swapi.co/api/vehicles/14/&quot;
+starships  &quot;http://swapi.co/api/starships/12/&quot;
+created    &quot;2014-12-09T13:50:51.644000Z&quot;
+edited     &quot;2014-12-20T21:17:56.891000Z&quot;
+url        &quot;http://swapi.co/api/people/1/&quot;
+           [,4]
+name       &quot;Luke Skywalker&quot;
+height     &quot;172&quot;
+mass       &quot;77&quot;
+hair_color &quot;blond&quot;
+skin_color &quot;fair&quot;
+eye_color  &quot;blue&quot;
+birth_year &quot;19BBY&quot;
+gender     &quot;male&quot;
+homeworld  &quot;http://swapi.co/api/planets/1/&quot;
+films      &quot;http://swapi.co/api/films/6/&quot;
+species    &quot;http://swapi.co/api/species/1/&quot;
+vehicles   &quot;http://swapi.co/api/vehicles/30/&quot;
+starships  &quot;http://swapi.co/api/starships/22/&quot;
+created    &quot;2014-12-09T13:50:51.644000Z&quot;
+edited     &quot;2014-12-20T21:17:56.891000Z&quot;
+url        &quot;http://swapi.co/api/people/1/&quot;    </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Simple Random Sampling Of Rows</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Simple-Random-Sampling-Of-Rows">Simple Random Sampling Of Rows<a class="anchor-link" href="#Simple-Random-Sampling-Of-Rows">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dataframe with simulated values</span>
+x <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+y <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+z <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+a <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> z<span class="p">,</span> a<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a vector of weighs</span>
+w <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># sample 10 rows of the dataframe at pseudorandom, without replacement</span>
+sample <span class="o">&lt;-</span> df<span class="p">[</span><span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">nrow</span><span class="p">(</span>df<span class="p">),</span> <span class="m">10</span><span class="p">,</span> replace <span class="o">=</span> <span class="bp">F</span><span class="p">),]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="kp">sample</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>             x         y          z           a
+500 0.44885287 0.7228785 0.11504159 0.054208551
+980 0.08392782 0.4568137 0.04393736 0.639204705
+445 0.48527409 0.9822628 0.37823768 0.410292231
+734 0.54769226 0.8992187 0.58030521 0.178938602
+177 0.43245083 0.9172805 0.02955689 0.743852472
+266 0.94394635 0.7638428 0.43960561 0.942814638
+256 0.77091541 0.2714964 0.49622060 0.009319224
+944 0.92682962 0.4278643 0.87805822 0.283003822
+492 0.84598479 0.7312344 0.02114653 0.366224907
+409 0.71072941 0.8280846 0.03118358 0.196112987</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># sample 10 rows of the dataframe at pseudorandom, without replacement, with the selection of reach row weighted by w (note w doesn&#39;t need to add up to 1)</span>
+sample.weighted <span class="o">&lt;-</span> df<span class="p">[</span><span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">nrow</span><span class="p">(</span>df<span class="p">),</span> <span class="m">10</span><span class="p">,</span> replace <span class="o">=</span> <span class="bp">F</span><span class="p">,</span> prob <span class="o">=</span> w<span class="p">),]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>sample.weighted
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>             x         y         z         a
+588 0.42359291 0.7747600 0.3443440 0.7502456
+417 0.23503932 0.2448383 0.8961582 0.2380380
+997 0.05755856 0.1587866 0.8144725 0.3183274
+789 0.46962589 0.5453313 0.3952169 0.5651571
+646 0.74493118 0.5151418 0.8717189 0.8330892
+231 0.60350137 0.2860977 0.8010951 0.7727321
+957 0.11192911 0.8962056 0.1051003 0.7203017
+947 0.38530976 0.7359524 0.1379156 0.7036205
+101 0.32523590 0.8928368 0.2648167 0.8808521
+208 0.84037450 0.8692373 0.5897262 0.2414655</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

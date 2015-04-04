@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cleaning Strings</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Cleaning-Strings">Cleaning Strings<a class="anchor-link" href="#Cleaning-Strings">&#182;</a></h1><p>Original source: Learning R</p>
+<p>R includes grep, grepl, regexpr, sub, and gsub to handle strings. However they can be clunky, so the stringr package provides a "UI" for these functions to making working with them easier.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># Load LearningR package</span>
+<span class="kn">library</span><span class="p">(</span>learningr<span class="p">)</span>
+
+<span class="c1"># Load english_monarchs data from the LearningR package</span>
+data<span class="p">(</span>english_monarchs<span class="p">,</span> package <span class="o">=</span> <span class="s">&quot;learningr&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load Stringr Library</span>
+<span class="kn">library</span><span class="p">(</span>stringr<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># detect commas in the domain variable, meaning that during that time a monarch had multiple territories (domains)</span>
+multiple_kingdoms <span class="o">&lt;-</span> str_detect<span class="p">(</span>english_monarchs<span class="o">$</span>domain<span class="p">,</span> fixed<span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">));</span> multiple_kingdoms
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+ [25]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+ [85]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># index domains where multiple_kingdoms is true. Show name and domain columns for those rows where it is true. </span>
+english_monarchs<span class="p">[</span>multiple_kingdoms<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;domain&quot;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>                          name                    domain
+17                        Offa       East Anglia, Mercia
+18                        Offa East Anglia, Kent, Mercia
+19           Offa and Ecgfrith East Anglia, Kent, Mercia
+20                    Ecgfrith East Anglia, Kent, Mercia
+22                C\u009cnwulf East Anglia, Kent, Mercia
+23   C\u009cnwulf and Cynehelm East Anglia, Kent, Mercia
+24                C\u009cnwulf East Anglia, Kent, Mercia
+25                    Ceolwulf East Anglia, Kent, Mercia
+26                   Beornwulf       East Anglia, Mercia
+82      Ecgbehrt and Æthelwulf              Kent, Wessex
+83      Ecgbehrt and Æthelwulf      Kent, Mercia, Wessex
+84      Ecgbehrt and Æthelwulf              Kent, Wessex
+85    Æthelwulf and Æðelstan I              Kent, Wessex
+86                   Æthelwulf              Kent, Wessex
+87 Æthelwulf and Æðelberht III              Kent, Wessex
+88               Æðelberht III              Kent, Wessex
+89                  Æthelred I              Kent, Wessex
+95                       Oswiu       Mercia, Northumbria</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># detect either a comma or an &quot;and&quot; in the ruler variable, meaning that a domain had multiple rulers</span>
+multiple_rulers <span class="o">&lt;-</span> str_detect<span class="p">(</span>english_monarchs<span class="o">$</span>name<span class="p">,</span> <span class="s">&quot;,|and&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># index domains where multiple rulers was true and that data isn&#39;t missing</span>
+english_monarchs<span class="o">$</span>name<span class="p">[</span>multiple_rulers <span class="o">&amp;</span> <span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>multiple_rulers<span class="p">)]</span>
+
+<span class="c1"># since individual rulers are split up by a comma or an and, we can split them up. The output is a list.</span>
+individual_rulers <span class="o">&lt;-</span> str_split<span class="p">(</span>english_monarchs<span class="o">$</span>name<span class="p">,</span> <span class="s">&quot;, | and &quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre> [1] Sigeberht and Ecgric
+ [2] Hun, Beonna and Alberht
+ [3] Offa and Ecgfrith
+ [4] C\u009cnwulf and Cynehelm
+ [5] Sighere and Sebbi
+ [6] Sigeheard and Swaefred
+ [7] Eorcenberht and Eormenred
+ [8] Oswine, Swæfbehrt, Swæfheard
+ [9] Swæfbehrt, Swæfheard, Wihtred
+[10] Æðelberht II, Ælfric and Eadberht I
+[11] Æðelberht II and Eardwulf
+[12] Eadberht II, Eanmund and Sigered
+[13] Heaberht and Ecgbehrt II
+[14] Ecgbehrt and Æthelwulf
+[15] Ecgbehrt and Æthelwulf
+[16] Ecgbehrt and Æthelwulf
+[17] Æthelwulf and Æðelstan I
+[18] Æthelwulf and Æðelberht III
+[19] Penda and Eowa
+[20] Penda and Peada
+[21] Æthelred, Lord of the Mercians
+[22] Æthelflæd, Lady of the Mercians
+[23] Ælfwynn, Second Lady of the Mercians
+[24] Hálfdan and Eowils
+[25] Noðhelm and Watt
+[26] Noðhelm and Bryni
+[27] Noðhelm and Osric
+[28] Noðhelm and Æðelstan
+[29] Ælfwald, Oslac and Osmund
+[30] Ælfwald, Ealdwulf, Oslac and Osmund
+[31] Ælfwald, Ealdwulf, Oslac, Osmund and Oswald
+[32] Cenwalh and Seaxburh
+211 Levels: Adda Æðelbehrt Æðelberht I ... Wulfhere</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># take a look at the data</span>
+<span class="kp">head</span><span class="p">(</span>individual_rulers<span class="p">[</span><span class="kp">sapply</span><span class="p">(</span>individual_rulers<span class="p">,</span> <span class="kp">length</span><span class="p">)</span> <span class="o">&gt;</span> <span class="m">1</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[1]]
+[1] &quot;Sigeberht&quot; &quot;Ecgric&quot;
+
+[[2]]
+[1] &quot;Hun&quot;     &quot;Beonna&quot;  &quot;Alberht&quot;
+
+[[3]]
+[1] &quot;Offa&quot;     &quot;Ecgfrith&quot;
+
+[[4]]
+[1] &quot;C\u009cnwulf&quot; &quot;Cynehelm&quot;
+
+[[5]]
+[1] &quot;Sighere&quot; &quot;Sebbi&quot;
+
+[[6]]
+[1] &quot;Sigeheard&quot; &quot;Swaefred&quot;
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

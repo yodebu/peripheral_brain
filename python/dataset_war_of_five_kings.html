@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Battle of Five Kings Dataset</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="http://chrisalbon.com/html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Battle-of-Five-Kings-Dataset">Battle of Five Kings Dataset<a class="anchor-link" href="#Battle-of-Five-Kings-Dataset">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong> Based on: <a href="https://github.com/chrisalbon/war_of_the_five_kings_dataset">https://github.com/chrisalbon/war_of_the_five_kings_dataset</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Import modules</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c"># Set ipython&#39;s max row display</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">&#39;display.max_row&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c"># Set iPython&#39;s max column width to 50</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;https://www.dropbox.com/s/52cb7kcflr8qm2u/5kings_battles_v1.csv?dl=1&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>year</th>
+      <th>battle_number</th>
+      <th>attacker_king</th>
+      <th>defender_king</th>
+      <th>attacker_1</th>
+      <th>attacker_2</th>
+      <th>attacker_3</th>
+      <th>attacker_4</th>
+      <th>defender_1</th>
+      <th>defender_2</th>
+      <th>defender_3</th>
+      <th>defender_4</th>
+      <th>attacker_outcome</th>
+      <th>battle_type</th>
+      <th>major_death</th>
+      <th>major_capture</th>
+      <th>attacker_size</th>
+      <th>defender_size</th>
+      <th>attacker_commander</th>
+      <th>defender_commander</th>
+      <th>summer</th>
+      <th>location</th>
+      <th>region</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>    Battle of the Golden Tooth</td>
+      <td> 298</td>
+      <td> 1</td>
+      <td> Joffrey/Tommen Baratheon</td>
+      <td>               Robb Stark</td>
+      <td> Lannister</td>
+      <td>   NaN</td>
+      <td> NaN</td>
+      <td> NaN</td>
+      <td>     Tully</td>
+      <td> NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>  win</td>
+      <td> pitched battle</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td> 15000</td>
+      <td>  4000</td>
+      <td>                                   Jaime Lannister</td>
+      <td>                              Clement Piper, Vance</td>
+      <td> 1</td>
+      <td>    Golden Tooth</td>
+      <td> The Westerlands</td>
+      <td> NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>   Battle at the Mummer's Ford</td>
+      <td> 298</td>
+      <td> 2</td>
+      <td> Joffrey/Tommen Baratheon</td>
+      <td>               Robb Stark</td>
+      <td> Lannister</td>
+      <td>   NaN</td>
+      <td> NaN</td>
+      <td> NaN</td>
+      <td> Baratheon</td>
+      <td> NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>  win</td>
+      <td>         ambush</td>
+      <td> 1</td>
+      <td> 0</td>
+      <td>   NaN</td>
+      <td>   120</td>
+      <td>                                    Gregor Clegane</td>
+      <td>                                  Beric Dondarrion</td>
+      <td> 1</td>
+      <td>   Mummer's Ford</td>
+      <td>  The Riverlands</td>
+      <td> NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>            Battle of Riverrun</td>
+      <td> 298</td>
+      <td> 3</td>
+      <td> Joffrey/Tommen Baratheon</td>
+      <td>               Robb Stark</td>
+      <td> Lannister</td>
+      <td>   NaN</td>
+      <td> NaN</td>
+      <td> NaN</td>
+      <td>     Tully</td>
+      <td> NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>  win</td>
+      <td> pitched battle</td>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 15000</td>
+      <td> 10000</td>
+      <td>                      Jaime Lannister, Andros Brax</td>
+      <td>                     Edmure Tully, Tytos Blackwood</td>
+      <td> 1</td>
+      <td>        Riverrun</td>
+      <td>  The Riverlands</td>
+      <td> NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>      Battle of the Green Fork</td>
+      <td> 298</td>
+      <td> 4</td>
+      <td>               Robb Stark</td>
+      <td> Joffrey/Tommen Baratheon</td>
+      <td>     Stark</td>
+      <td>   NaN</td>
+      <td> NaN</td>
+      <td> NaN</td>
+      <td> Lannister</td>
+      <td> NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td> loss</td>
+      <td> pitched battle</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td> 18000</td>
+      <td> 20000</td>
+      <td> Roose Bolton, Wylis Manderly, Medger Cerwyn, H...</td>
+      <td> Tywin Lannister, Gregor Clegane, Kevan Lannist...</td>
+      <td> 1</td>
+      <td>      Green Fork</td>
+      <td>  The Riverlands</td>
+      <td> NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> Battle of the Whispering Wood</td>
+      <td> 298</td>
+      <td> 5</td>
+      <td>               Robb Stark</td>
+      <td> Joffrey/Tommen Baratheon</td>
+      <td>     Stark</td>
+      <td> Tully</td>
+      <td> NaN</td>
+      <td> NaN</td>
+      <td> Lannister</td>
+      <td> NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>  win</td>
+      <td>         ambush</td>
+      <td> 1</td>
+      <td> 1</td>
+      <td>  1875</td>
+      <td>  6000</td>
+      <td>                         Robb Stark, Brynden Tully</td>
+      <td>                                   Jaime Lannister</td>
+      <td> 1</td>
+      <td> Whispering Wood</td>
+      <td>  The Riverlands</td>
+      <td> NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

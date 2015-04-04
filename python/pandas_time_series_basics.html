@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Pandas Time Series Basics</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="http://chrisalbon.com/html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Pandas-Time-Series-Basics">Pandas Time Series Basics<a class="anchor-link" href="#Pandas-Time-Series-Basics">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-modules">Import modules<a class="anchor-link" href="#Import-modules">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pyplot</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-dataframe">Create a dataframe<a class="anchor-link" href="#Create-a-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;2014-05-01 18:47:05.069722&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-01 18:47:05.119994&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-02 18:47:05.178768&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-02 18:47:05.230071&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-02 18:47:05.230071&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-02 18:47:05.280592&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-03 18:47:05.332662&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-03 18:47:05.385109&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-04 18:47:05.436523&#39;</span><span class="p">,</span> <span class="s">&#39;2014-05-04 18:47:05.486877&#39;</span><span class="p">],</span>
+        <span class="s">&#39;battle_deaths&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">34</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">41</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">,</span> <span class="s">&#39;battle_deaths&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                         date  battle_deaths
+0  2014-05-01 18:47:05.069722             34
+1  2014-05-01 18:47:05.119994             25
+2  2014-05-02 18:47:05.178768             26
+3  2014-05-02 18:47:05.230071             15
+4  2014-05-02 18:47:05.230071             15
+5  2014-05-02 18:47:05.280592             14
+6  2014-05-03 18:47:05.332662             26
+7  2014-05-03 18:47:05.385109             25
+8  2014-05-04 18:47:05.436523             62
+9  2014-05-04 18:47:05.486877             41
+
+[10 rows x 2 columns]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Convert-df['date']-from-string-to-datetime">Convert df['date'] from string to datetime<a class="anchor-link" href="#Convert-df['date']-from-string-to-datetime">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-df['date']-as-the-index-and-delete-the-column">Set df['date'] as the index and delete the column<a class="anchor-link" href="#Set-df['date']-as-the-index-and-delete-the-column">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span>
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[116]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 34</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 14</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-all-observations-that-occured-in-2014">View all observations that occured in 2014<a class="anchor-link" href="#View-all-observations-that-occured-in-2014">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="s">&#39;2014&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[117]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 34</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 14</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="View-all-observations-that-occured-in-May-2014">View all observations that occured in May 2014<a class="anchor-link" href="#View-all-observations-that-occured-in-May-2014">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="s">&#39;2014-05&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[118]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 34</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 14</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Observations-after-May-3rd,-2014">Observations after May 3rd, 2014<a class="anchor-link" href="#Observations-after-May-3rd,-2014">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">):]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[119]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Observations-between-May-3rd-and-May-4th">Observations between May 3rd and May 4th<a class="anchor-link" href="#Observations-between-May-3rd-and-May-4th">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="p">[</span><span class="s">&#39;5/3/2014&#39;</span><span class="p">:</span><span class="s">&#39;5/4/2014&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[120]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Truncation-observations-after-May-2nd-2014">Truncation observations after May 2nd 2014<a class="anchor-link" href="#Truncation-observations-after-May-2nd-2014">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="s">&#39;5/3/2014&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[121]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 34</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 14</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Observations-of-May-2014">Observations of May 2014<a class="anchor-link" href="#Observations-of-May-2014">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;5-2014&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[122]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 34</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 15</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 14</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 26</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 25</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 62</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 41</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Count-the-number-of-observations-per-timestamp">Count the number of observations per timestamp<a class="anchor-link" href="#Count-the-number-of-observations-per-timestamp">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[123]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01 18:47:05.069722</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-01 18:47:05.119994</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.178768</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.230071</th>
+      <td> 2</td>
+    </tr>
+    <tr>
+      <th>2014-05-02 18:47:05.280592</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.332662</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-03 18:47:05.385109</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.436523</th>
+      <td> 1</td>
+    </tr>
+    <tr>
+      <th>2014-05-04 18:47:05.486877</th>
+      <td> 1</td>
+    </tr>
+  </tbody>
+</table>
+<p>9 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-"> <a class="anchor-link" href="#-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mean-value-of-battle_deaths-per-day">Mean value of battle_deaths per day<a class="anchor-link" href="#Mean-value-of-battle_deaths-per-day">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;mean&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[124]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01</th>
+      <td> 29.5</td>
+    </tr>
+    <tr>
+      <th>2014-05-02</th>
+      <td> 17.5</td>
+    </tr>
+    <tr>
+      <th>2014-05-03</th>
+      <td> 25.5</td>
+    </tr>
+    <tr>
+      <th>2014-05-04</th>
+      <td> 51.5</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-value-of-battle_deaths-per-day">Total value of battle_deaths per day<a class="anchor-link" href="#Total-value-of-battle_deaths-per-day">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;sum&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[125]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>battle_deaths</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-05-01</th>
+      <td>  59</td>
+    </tr>
+    <tr>
+      <th>2014-05-02</th>
+      <td>  70</td>
+    </tr>
+    <tr>
+      <th>2014-05-03</th>
+      <td>  51</td>
+    </tr>
+    <tr>
+      <th>2014-05-04</th>
+      <td> 103</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Plot-of-the-total-battle-deaths-per-day">Plot of the total battle deaths per day<a class="anchor-link" href="#Plot-of-the-total-battle-deaths-per-day">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[128]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes.AxesSubplot at 0x10809de50&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kolmogorov Smirnov Test</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="http://chrisalbon.com/html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Kolmogorov-Smirnov-Test">Kolmogorov Smirnov Test<a class="anchor-link" href="#Kolmogorov-Smirnov-Test">&#182;</a></h1><ul>
+<li><strong>Author:</strong> <a href="http://www.chrisalbon.com/">Chris Albon</a>, <a href="https://twitter.com/chrisalbon">@ChrisAlbon</a></li>
+<li><strong>Date:</strong> -</li>
+<li><strong>Repo:</strong> <a href="https://github.com/chrisalbon/code_py">Python 3 code snippets for data science</a></li>
+<li><strong>Note:</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Import required packages</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create x, which is uniformly distributed</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c"># Plot x to double check its distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+/T979rsnMlBdqAAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Create y, which is NOT uniformly distributed</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
+
+<span class="c"># Plot y to double check its distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Run kstest on x. We want the second returned value to be </span>
+<span class="c"># not statistically significant, meaning that both come from </span>
+<span class="c"># the same distribution.</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.043685470092267642, 0.042698030459771275)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Run kstest on y. We want the second returned value to be </span>
+<span class="c"># statistically significant, meaning that likely do not both </span>
+<span class="c"># come from the same distribution.</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.48969825580402526, 0.0)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

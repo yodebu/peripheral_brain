@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Aggregate Data By Week Or Month</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Aggregate-Data-By-Week-Or-Month">Aggregate Data By Week Or Month<a class="anchor-link" href="#Aggregate-Data-By-Week-Or-Month">&#182;</a></h1><p>original source: <a href="http://stackoverflow.com/questions/19716244/aggregate-data-by-week-month-etc-in-r?lq=1">http://stackoverflow.com/questions/19716244/aggregate-data-by-week-month-etc-in-r?lq=1</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># load the xts package</span>
+<span class="kn">library</span><span class="p">(</span>xts<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-some-simulated-data">Create some simulated data<a class="anchor-link" href="#Create-some-simulated-data">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create an element for every year between two dates</span>
+date <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">as.Date</span><span class="p">(</span><span class="s">&quot;2006-01-01&quot;</span><span class="p">),</span> <span class="kp">as.Date</span><span class="p">(</span><span class="s">&quot;2007-01-01&quot;</span><span class="p">),</span> by <span class="o">=</span> <span class="s">&quot;1 day&quot;</span><span class="p">)</span>
+
+<span class="c1"># create some simulated values</span>
+score <span class="o">&lt;-</span> runif<span class="p">(</span><span class="m">366</span><span class="p">)</span>
+
+<span class="c1"># create a zoo time series object of score and ata</span>
+zoo <span class="o">&lt;-</span> zoo<span class="p">(</span>score<span class="p">,</span> <span class="kp">date</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-some-averages">Create some averages<a class="anchor-link" href="#Create-some-averages">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a weekly average</span>
+weekly.avg <span class="o">&lt;-</span> apply.weekly<span class="p">(</span>zoo<span class="p">,</span> <span class="kp">mean</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>weekly.avg
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2006-01-01 2006-01-08 2006-01-15 2006-01-22 2006-01-29 2006-02-05 2006-02-12
+ 0.6463105  0.3696941  0.4492466  0.5587588  0.3330893  0.7490642  0.3463500
+2006-02-19 2006-02-26 2006-03-05 2006-03-12 2006-03-19 2006-03-26 2006-04-02
+ 0.4594144  0.3015816  0.5016827  0.3824588  0.4501046  0.5086366  0.6927037
+2006-04-09 2006-04-16 2006-04-23 2006-04-30 2006-05-07 2006-05-14 2006-05-21
+ 0.5238080  0.6618441  0.4366701  0.6187016  0.6110044  0.5724795  0.5267836
+2006-05-28 2006-06-04 2006-06-11 2006-06-18 2006-06-25 2006-07-02 2006-07-09
+ 0.4003268  0.3999404  0.6366840  0.4546525  0.5675619  0.4411083  0.5747285
+2006-07-16 2006-07-23 2006-07-30 2006-08-06 2006-08-13 2006-08-20 2006-08-27
+ 0.4136250  0.4936679  0.4814989  0.4419165  0.3644543  0.6385395  0.5230308
+2006-09-03 2006-09-10 2006-09-17 2006-09-24 2006-10-01 2006-10-08 2006-10-15
+ 0.5259253  0.5474812  0.4658602  0.4771834  0.6106620  0.4471343  0.4576065
+2006-10-22 2006-10-29 2006-11-05 2006-11-12 2006-11-19 2006-11-26 2006-12-03
+ 0.6124155  0.5418694  0.3136825  0.4227544  0.2406943  0.3723846  0.6079556
+2006-12-10 2006-12-17 2006-12-24 2006-12-31 2007-01-01
+ 0.5289365  0.4426345  0.6362102  0.4849858  0.1102631 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a monthly average</span>
+monthly.avg <span class="o">&lt;-</span> apply.monthly<span class="p">(</span>zoo<span class="p">,</span> <span class="kp">mean</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre>monthly.avg
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2006-01-31 2006-02-28 2006-03-31 2006-04-30 2006-05-31 2006-06-30 2006-07-31
+ 0.4636550  0.4345047  0.4883293  0.5791776  0.5045688  0.5301847  0.4698487
+2006-08-31 2006-09-30 2006-10-31 2006-11-30 2006-12-31 2007-01-01
+ 0.5033712  0.5218908  0.5171836  0.3661705  0.5341010  0.1102631 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Convert A List Into A Dataframe</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/normalize.css" rel="stylesheet" media="all">
+    <link href="../css/styles.css" rel="stylesheet" media="all">
+    <link href="../css/notebooks.css" rel="stylesheet" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <header role="banner">
+        <div class="row">
+        <h2><a href="http://chrisalbon.com">Chris Albon</a></h2>
+        <nav role="navigation">
+            <a href="html/miscellaneous/about.html">About</a> | <a href="https://github.com/chrisalbon">GitHub</a> | <a href="https://twitter.com/chrisalbon">Twitter</a>
+        </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main role="main">
+          <div class="notebook">
+<!-- end of header section -->
+<!-- PASTE IPYTHON NOTEBOOK BELOW THIS LINE -->
+
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Convert-A-List-Into-A-Dataframe">Convert A List Into A Dataframe<a class="anchor-link" href="#Convert-A-List-Into-A-Dataframe">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a list of two elements, the first a vector of 20 obs, the second 20 state names</span>
+the.list <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>scores <span class="o">=</span> runif<span class="p">(</span><span class="m">20</span><span class="p">),</span> states <span class="o">=</span> state.name<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">]);</span> the.list
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>$scores
+ [1] 0.72770677 0.61598787 0.96234018 0.19366523 0.26006986 0.07253386
+ [7] 0.73779295 0.58013676 0.18979002 0.72309143 0.48458231 0.51446047
+[13] 0.88990973 0.53759564 0.62698847 0.08148905 0.31585633 0.88666670
+[19] 0.87910724 0.59395343
+
+$states
+ [1] &quot;Alabama&quot;     &quot;Alaska&quot;      &quot;Arizona&quot;     &quot;Arkansas&quot;    &quot;California&quot;
+ [6] &quot;Colorado&quot;    &quot;Connecticut&quot; &quot;Delaware&quot;    &quot;Florida&quot;     &quot;Georgia&quot;
+[11] &quot;Hawaii&quot;      &quot;Idaho&quot;       &quot;Illinois&quot;    &quot;Indiana&quot;     &quot;Iowa&quot;
+[16] &quot;Kansas&quot;      &quot;Kentucky&quot;    &quot;Louisiana&quot;   &quot;Maine&quot;       &quot;Maryland&quot;
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="c1"># create a dataframe with identifying each element of the list as a dataframe column </span>
+df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>the.list<span class="o">$</span>scores<span class="p">,</span> the.list<span class="o">$</span>states<span class="p">);</span> df
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>   the.list.scores the.list.states
+1       0.72770677         Alabama
+2       0.61598787          Alaska
+3       0.96234018         Arizona
+4       0.19366523        Arkansas
+5       0.26006986      California
+6       0.07253386        Colorado
+7       0.73779295     Connecticut
+8       0.58013676        Delaware
+9       0.18979002         Florida
+10      0.72309143         Georgia
+11      0.48458231          Hawaii
+12      0.51446047           Idaho
+13      0.88990973        Illinois
+14      0.53759564         Indiana
+15      0.62698847            Iowa
+16      0.08148905          Kansas
+17      0.31585633        Kentucky
+18      0.88666670       Louisiana
+19      0.87910724           Maine
+20      0.59395343        Maryland</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- PASTE IPYTHON NOTEBOOK ABOVE THIS LINE -->
+<!-- start of footer section -->
+
+          </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+        Copyright &copy; Chris Albon, <time datetime="2015">2015</time>
+    </footer>
+
+    <!-- Load Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66582-32', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+</body>
+</html>
+
