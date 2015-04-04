@@ -8,10 +8,10 @@ Specifically, it is a colleciton of iPython Notebooks covering everything from w
 
 **The workflow for adding posts is as follows:**
 
-1. Write a post in an iPython Notebook and place it in this repo.
+1. Write a post in an iPython Notebook.
 2. Export the ipynb file to basic html.
 3. Paste the header and footer in template.partial above and below the notebook's contents (and change the title), respectively.
-4. Add the file to the appropriate html/ folder.
+4. Add the html file and ipynb file to the appropriate folder.
 5. Edit index.html to add a link to the html file.
 
 ## Repo Structure:
@@ -34,7 +34,7 @@ This is a folder to place the original material used to create the site that mig
 - **css/notebooks.css** - A css file for styling the notebooks get are pasted in.
 - **css/styles.css** - A css file to style the site.
 
-### html/
+### python | regex | rstats etc
 
 - **template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
 
@@ -48,10 +48,6 @@ Scripts used the run the site.
 ### js/
 
 Javascript files.
-
-### notebooks/
-
-This folder contains the raw iPython notebook files.
 
 ## Credits
 
