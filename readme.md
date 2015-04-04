@@ -19,13 +19,19 @@ Specifically, it is a colleciton of iPython Notebooks covering everything from w
 - **index.html** - The site's homepage.
 - **readme.md** - This file.
 
-### clean-templates/
+### assets/
 
-This is a folder to place the original material used to create the site that might be useful later.
+This is a folder to place the assets used to create the site that might be useful later.
 
-- **clean-templates/ipython_nb_css_raw.css** - The original css file used to style ipython notebooks. This is kept around just in case as reference.
-- **clean-templates/main-template-bare-bones.html** - The bare bones html5 template with incredible notes.
-- **clean-templates/main-template-no-comments.html** - The bare bones html5 template with no notes.
+- **assets/clean-templates/ipython_nb_css_raw.css** - The original css file used to style ipython notebooks. This is kept around just in case as reference.
+- **cassets/clean-templates/main-template-bare-bones.html** - The bare bones html5 template with incredible notes.
+- **assets/clean-templates/main-template-no-comments.html** - The bare bones html5 template with no notes.
+
+- **html/nb_to_html_all.command** - A script for converting all .pynb files in the current directory into their basic template.
+- **html/nb_to_html_single.command** - A script for converting a single .pynb file into its basic template.
+
+- **template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
+
 
 ### css/
 
@@ -36,18 +42,11 @@ This is a folder to place the original material used to create the site that mig
 
 ### python | regex | rstats etc
 
-- **template.partial** - A partial file containing the header and footer used to wrap the ipython notebooks.
-
-### scripts/
-
-Scripts used the run the site.
-
-- **html/nb_to_html_all.command** - A script for converting all .pynb files in the current directory into their basic template.
-- **html/nb_to_html_single.command** - A script for converting a single .pynb file into its basic template.
+A folder containing the ipython notebooks and html files.
 
 ### js/
 
-Javascript files.
+Javascript a file to fix ie9 problems.
 
 ## Credits
 
