@@ -8,7 +8,7 @@ Code Cell Formating
 
 .notebook {
   font-family: 'Source Serif Pro', serif;
-  font-size:1.10em;
+  font-size:1.1em;
 }
 
 
@@ -239,8 +239,9 @@ Source: http://www.sebastianraschka.com/CSS/codehilite.css
   padding: 0 5px;
   white-space: nowrap;
   border: 1px solid #eaeaea;
-  background-color: #f8f8f8;
-  font-size: 13px;
+  background-color: #F9F2F4;
+  color: #BA2121;
+  font-size: 16px;
   border-radius: 3px;
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -265,12 +266,12 @@ Text
 .notebook strong{font-weight:bold;}
 .notebook u{text-decoration:underline;}
 
-.notebook h1{font-size:197%;margin:.15em 0;font-weight:bold;}
-.notebook h2{font-size:143.9%;margin:.25em 0;font-weight:bold;}
-.notebook h3{font-size:113.1%;margin:.25em 0;font-weight:bold;}
-.notebook h4{font-size:90%;margin:0.35em 0;font-weight:bold;}
-.notebook h5{font-size:75%;margin:.85em 0;font-weight:bold;}
-.notebook h6{font-size:67%;margin:1.3em 0;font-weight:bold;}
+.notebook h1{font-size:180%;margin:.15em 0;font-weight:bold;}
+.notebook h2{font-size:140%;margin:.25em 0;font-weight:bold;}
+.notebook h3{font-size:130%;margin:.25em 0;font-weight:bold;}
+.notebook h4{font-size:120%;margin:.25em 0;font-weight:bold;}
+.notebook h5{font-size:110%;margin:.25em 0;font-weight:bold;}
+.notebook h6{font-size:100%;margin:.25em 0;font-weight:bold;}
 
 .notebook ul{list-style:disc;}
 .notebook ul ul{list-style:square;margin:0em 2em;}
