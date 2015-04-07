@@ -1,6 +1,6 @@
-# Chris Albon's Peripheral Brain
+# Chris Albon's Data Science Peripheral Brain
 
-There is a concept in the field of medcial education that I have always loved: [the peripheral brain](http://en.wiktionary.org/wiki/peripheral_brain). Like many fields, the amount of medical information — from studies to surgical techniques — a medical student or doctor has to know is massive. The most important information becomes part of our long-term memory, but what about the rest? It goes in a peripheral brain: a repository of all the knowledge that is important, but not important enough to keep in your head.
+There is a concept in the field of medical education that I have always loved: [the peripheral brain](http://en.wiktionary.org/wiki/peripheral_brain). Like many fields, the amount of medical information — from studies to surgical techniques — a medical student or doctor has to know is massive. The most important information becomes part of our long-term memory, but what about the rest? It goes in a peripheral brain: a repository of all the knowledge that is important, but not important enough to keep in your head.
 
 Like medicine, data science has a staggering amount of information — from linear regression to SQL to causal logic. It is frankly why some of us love this field: there is always something new to learn. Taking a lesson from medicine, [ChrisAlbon.com](http://chrisalbon.com) is my peripheral brain on data science and quantitative political science.
 
