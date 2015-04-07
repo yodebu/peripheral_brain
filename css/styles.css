@@ -28,7 +28,7 @@ header {
 }
 
 .row {
-  max-width: 1000px;
+  max-width: 960px;
   border-bottom: 1px solid #BF3E32;
   padding: .7em 1em .7em 1em;
   color: #fff;
@@ -60,7 +60,7 @@ text-decoration: none;
   padding: 1em;
   margin: 0 auto .5em auto;
   background: #fff;
-  max-width: 1000px;
+  max-width: 960px;
 }
 
 .main {
