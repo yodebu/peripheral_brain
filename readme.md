@@ -1,4 +1,4 @@
-# Chris Albon's Data Science Peripheral Brain
+# Data Science Peripheral Brain
 
 There is a concept in the field of medical education that I have always loved: [the peripheral brain](http://en.wiktionary.org/wiki/peripheral_brain). Like many fields, the amount of medical information — from studies to surgical techniques — a medical student or doctor has to know is massive. The most important information becomes part of our long-term memory, but what about the rest? It goes in a peripheral brain: a repository of all the knowledge that is important, but not important enough to keep in your head.
 
