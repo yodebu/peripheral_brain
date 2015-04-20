@@ -10,5 +10,5 @@ source activate py3k
 
 cd "$(dirname "$0")"
 
-ipython nbconvert --to html --template basic enumerate_a_list.ipynb
+ipython nbconvert --to html --template basic try_except_finally.ipynb
 
