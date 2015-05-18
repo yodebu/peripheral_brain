@@ -10,5 +10,5 @@ source activate py3k
 
 cd "$(dirname "$0")"
 
-ipython nbconvert --to html --template basic try_except_finally.ipynb
+ipython nbconvert --to html --template basic pandas_normalize_column.ipynb
 
