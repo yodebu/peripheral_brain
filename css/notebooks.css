@@ -269,8 +269,8 @@ Text
 .notebook h1{font-size:180%;margin:.15em 0;font-weight:bold;}
 .notebook h2{font-size:140%;margin:.25em 0;font-weight:bold;}
 .notebook h3{font-size:130%;margin:.25em 0;font-weight:bold;}
-.notebook h4{font-size:120%;margin:.25em 0;font-weight:bold;}
-.notebook h5{font-size:110%;margin:.25em 0;font-weight:bold;}
+.notebook h4{font-size:110%;margin:.25em 0;font-weight:bold;}
+.notebook h5{font-size:105%;margin:.25em 0;font-weight:bold;}
 .notebook h6{font-size:100%;margin:.25em 0;font-weight:bold;}
 
 .notebook ul{list-style:disc;}
@@ -288,6 +288,8 @@ Text
 .notebook blockquote{margin:1em 3em 1em 3em; color:#777777;}
 
 .notebook hr{color:black;background-color:black;}
+
+.notebook h4{font-weight:bold; border-bottom: 1px solid #eaeaea;}
 
 
 /* ---------------------------------------------------------
