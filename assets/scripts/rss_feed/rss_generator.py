@@ -39,22 +39,29 @@ today_df.to_csv('/home/chrisalbon/web/yesterday.csv', index=False)
 
 # Compare today's version and yesterday's version
 new_posts = today_df.loc[~today_df['link'].isin(yesterday_df['link'])]
-print(new_posts)
+
+todays_date = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+new_posts['published'] = todays_date
+
+# Save new posts to csv for later retrieval
+old_posts = pd.read_csv('/home/chrisalbon/web/all_posts.csv')
+all_posts = pd.concat([new_posts, old_posts], axis=0)
+all_posts.to_csv('/home/chrisalbon/web/all_posts.csv', index=False)
 
 # Construct and save the RSS feed
 header = soup.title.string
 title = header.split(' - ')[0]
 description = header.split(' - ')[1]
-todays_date = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 
 post_items = []
 
-for index, row in new_posts.iterrows():
+for index, row in all_posts[0:9].iterrows():
     post_title = row[0]
     post_url = row[1]
-    post_items.append('<item><title>'+post_title+'</title><link>'+post_url+'</link><pubDate>'+todays_date+'</pubDate><description></description> </item>')
+    post_date = str(row[2])
+    post_items.append('<item><title>'+post_title+'</title><link>'+post_url+'</link><pubDate>'+post_date+'</pubDate><description></description> </item>')
 
-rss_items = str(post_items[0:10])
+rss_items = str(post_items)
 
 rss_items = rss_items.strip("['")
 rss_items = rss_items.replace("', '", " ")
@@ -63,12 +70,9 @@ rss_items = rss_items.strip("']")
 rss_header = '<?xml version="1.0" encoding="UTF-8"?> <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chris Albon</title><link>http://chrisalbon.com/</link><atom:link href="http://chrisalbon.pythonanywhere.com/feed.xml" rel="self" type="application/rss+xml" /><description>Political Science And Data Science</description><language>en</language>'
 rss_footer = '</channel></rss>'
 
-if len(rss_items) > 1:
-    rss_full = rss_header + rss_items + rss_footer
-    text_file = open("/home/chrisalbon/web/feed.xml", "w")
-    text_file.write(rss_full)
-    text_file.close()
-    print(rss_full)
-    print('New posts created!')
-else:
-    print('No new posts today')
+rss_full = rss_header + rss_items + rss_footer
+text_file = open("/home/chrisalbon/web/feed.xml", "w")
+text_file.write(rss_full)
+text_file.close()
+print(rss_full)
+print('Script done!')
