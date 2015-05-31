@@ -289,9 +289,9 @@ Text
 
 .notebook hr{color:black;background-color:black;}
 
-.notebook h4{font-weight:bold; 
+.notebook h4 .subtopic{font-weight:bold; 
           border-bottom: 1px solid #eaeaea;
-          color: 666;}
+          font-family: sans-serif;}
 
 
 /* ---------------------------------------------------------
