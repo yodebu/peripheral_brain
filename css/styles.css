@@ -104,7 +104,7 @@ footer {
 
 .post-list li{
     line-height: 1em;
-    margin-bottom: .5em;
+    margin-bottom: .33em;
 }
 
 .post-list li a{
@@ -117,6 +117,11 @@ font-size:.85em;
   font-size:.75em;
   text-decoration:none;
 }
+
+.post-list .subtopic {
+  font-weight:bold;              
+  border-bottom: 1px solid #eaeaea;
+  font-family: sans-serif;}
 
 /* ---------------------------------------------------------
 Print styles
